@@ -1,4 +1,5 @@
 using CyberCareServices.Data;
+using CyberCareServices.Middleware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@ namespace CyberCareServices
                 .AddEntityFrameworkStores<CyberCareServicesContext>();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddSession();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -35,7 +38,11 @@ namespace CyberCareServices
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthorization();
+
+            app.UseDbInitializer();
 
             app.MapControllerRoute(
                 name: "default",
