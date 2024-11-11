@@ -1,21 +1,34 @@
+using CyberCareServices.Data;
 using CyberCareServices.Models;
+using CyberCareServices.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace CyberCareServices.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly CyberCareServicesContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CyberCareServicesContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new HomeViewModel
+            {
+                ComponentTypes = _context.ComponentTypes.ToList(),
+                Components = _context.Components.ToList(),
+                Customers = _context.Customers.ToList(),
+                Employees = _context.Employees.ToList(),
+                Services = _context.Services.ToList(),
+                Orders = _context.Orders.ToList()
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

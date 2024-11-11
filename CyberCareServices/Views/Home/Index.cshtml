@@ -1,8 +1,160 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model CyberCareServices.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Cyber Care Services Overview";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Cyber Care Services Overview</h1>
+
+<table border="0" cellspacing="100">
+    <tr>
+        <td>
+            <table border="1">
+                <caption>Типы компонентов</caption>
+                <tr>
+                    <th>Код типа</th>
+                    <th>Название типа</th>
+                    <th>Описание</th>
+                </tr>
+                @foreach (var componentType in Model.ComponentTypes)
+                {
+                    <tr>
+                        <td>@componentType.ComponentTypeId</td>
+                        <td>@componentType.Name</td>
+                        <td>@componentType.Description</td>
+                    </tr>
+                }
+            </table>
+        </td>
+
+        <td>
+            <table border="1">
+                <caption>Компоненты</caption>
+                <tr>
+                    <th>Код компонента</th>
+                    <th>Тип компонента</th>
+                    <th>Бренд</th>
+                    <th>Производитель</th>
+                    <th>Страна</th>
+                    <th>Дата выхода</th>
+                    <th>Спецификация</th>
+                    <th>Гарантийный период</th>
+                    <th>Описание</th>
+                    <th>Цена</th>
+                </tr>
+                @foreach (var component in Model.Components)
+                {
+                    <tr>
+                        <td>@component.ComponentId</td>
+                        <td>@component.ComponentTypeId</td>
+                        <td>@component.Brand</td>
+                        <td>@component.Manufacturer</td>
+                        <td>@component.CountryOfOrigin</td>
+                        <td>@component.ReleaseDate</td>
+                        <td>@component.Specifications</td>
+                        <td>@component.WarrantyPeriod</td>
+                        <td>@component.Description</td>
+                        <td>@component.Price</td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table border="1">
+    <caption>Клиенты</caption>
+    <tr>
+        <th>Код клиента</th>
+        <th>Полное имя</th>
+        <th>Адрес</th>
+        <th>Телефон</th>
+        <th>Активность скидки</th>
+        <th>Скидка %</th>
+    </tr>
+    @foreach (var customer in Model.Customers)
+    {
+        <tr>
+            <td>@customer.CustomerId</td>
+            <td>@customer.FullName</td>
+            <td>@customer.Address</td>
+            <td>@customer.Phone</td>
+            <td>@customer.DiscountAvailable</td>
+            <td>@customer.DiscountAmount</td>
+        </tr>
+    }
+</table>
+
+<table border="1">
+    <caption>Сотрудники</caption>
+    <tr>
+        <th>Код сотрудника</th>
+        <th>Полное имя</th>
+        <th>Должность</th>
+        <th>Дата приёма на работу</th>
+        <th>День рождения</th>
+        <th>Телефон</th>
+        <th>EMail</th>
+    </tr>
+    @foreach (var employee in Model.Employees)
+    {
+        <tr>
+            <td>@employee.EmployeeId</td>
+            <td>@employee.FullName</td>
+            <td>@employee.Position</td>
+            <td>@employee.DateOfHire</td>
+            <td>@employee.DateOfBirth</td>
+            <td>@employee.Phone</td>
+            <td>@employee.Email</td>
+        </tr>
+    }
+</table>
+
+<table border="1">
+    <caption>Услуги</caption>
+    <tr>
+        <th>Код услуги</th>
+        <th>Название услуги</th>
+        <th>Описание</th>
+        <th>Стоимость</th>
+    </tr>
+    @foreach (var service in Model.Services)
+    {
+        <tr>
+            <td>@service.ServiceId</td>
+            <td>@service.Name</td>
+            <td>@service.Description</td>
+            <td>@service.Cost</td>
+        </tr>
+    }
+</table>
+
+<table border="1">
+    <caption>Заказы</caption>
+    <tr>
+        <th>Код заказа</th>
+        <th>Принят</th>
+        <th>Выполнен</th>
+        <th>Код клиента</th>
+        <th>Предоплата</th>
+        <th>Статус оплаты</th>
+        <th>Статус выполнения</th>
+        <th>Общая стоимость</th>
+        <th>Гарантия (мес.)</th>
+        <th>Код сотрудника</th>
+    </tr>
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>@order.OrderId</td>
+            <td>@order.OrderDate</td>
+            <td>@order.CompletionDate</td>
+            <td>@order.CustomerId</td>
+            <td>@order.Prepayment</td>
+            <td>@(order.PaymentStatus ? "Оплачено" : "Не оплачено")</td>
+            <td>@order.CompletionStatus</td>
+            <td>@order.TotalCost</td>
+            <td>@order.WarrantyPeriod</td>
+            <td>@order.EmployeeId</td>
+        </tr>
+    }
+</table>

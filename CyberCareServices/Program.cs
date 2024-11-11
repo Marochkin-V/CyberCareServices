@@ -1,3 +1,5 @@
+//#define InitializationNeeded
+
 using CyberCareServices.Data;
 using CyberCareServices.Middleware;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +44,9 @@ namespace CyberCareServices
 
             app.UseAuthorization();
 
+#if InitializationNeeded
             app.UseDbInitializer();
+#endif
 
             app.MapControllerRoute(
                 name: "default",
