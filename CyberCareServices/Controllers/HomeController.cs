@@ -22,10 +22,10 @@ namespace CyberCareServices.Controllers
             int rowsCount = 10;
             var viewModel = new HomeViewModel
             {
-                ComponentTypes = _context.ComponentTypes.ToList(),
-                Customers = _context.Customers.ToList(),
-                Employees = _context.Employees.ToList(),
-                Services = _context.Services.ToList(),
+                ComponentTypes = _context.ComponentTypes.Take(rowsCount),
+                Customers = _context.Customers.Take(rowsCount),
+                Employees = _context.Employees.Take(rowsCount),
+                Services = _context.Services.Take(rowsCount),
                 Components = [.. _context.Components.OrderByDescending(c => c.ReleaseDate)
                     .Select(c => new ComponentsViewModel{
                         ComponentId = c.ComponentId,
@@ -40,7 +40,7 @@ namespace CyberCareServices.Controllers
                         Price = c.Price,
                     })
                     .Take(rowsCount)],
-                Orders = _context.Orders.ToList(),
+                Orders = _context.Orders.ToList().Take(rowsCount),
             };
 
             return View(viewModel);

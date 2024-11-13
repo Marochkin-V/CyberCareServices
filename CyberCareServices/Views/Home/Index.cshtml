@@ -1,70 +1,62 @@
-﻿@model CyberCareServices.ViewModels.HomeViewModel
+﻿@using CyberCareServices.Model
+@model CyberCareServices.ViewModels.HomeViewModel
 @{
     ViewData["Title"] = "Cyber Care Services Overview";
 }
 
-<h1>Cyber Care Services Overview</h1>
-
-<table border="0" cellspacing="100">
-    <tr>
-        <td>
-            <table border="1">
-                <caption>Типы компонентов</caption>
-                <tr>
-                    <th>Код типа</th>
-                    <th>Название типа</th>
-                    <th>Описание</th>
-                </tr>
-                @foreach (var componentType in Model.ComponentTypes)
-                {
-                    <tr>
-                        <td>@componentType.ComponentTypeId</td>
-                        <td>@componentType.Name</td>
-                        <td>@componentType.Description</td>
-                    </tr>
-                }
-            </table>
-        </td>
-
-        <td>
-            <table border="1">
-                <caption>Компоненты</caption>
-                <tr>
-                    <th>Код компонента</th>
-                    <th>Тип компонента</th>
-                    <th>Бренд</th>
-                    <th>Производитель</th>
-                    <th>Страна</th>
-                    <th>Дата выхода</th>
-                    <th>Спецификация</th>
-                    <th>Гарантийный период</th>
-                    <th>Описание</th>
-                    <th>Цена</th>
-                </tr>
-                @foreach (var component in Model.Components)
-                {
-                    <tr>
-                        <td>@component.ComponentId</td>
-                        <td>@component.ComponentType</td>
-                        <td>@component.Brand</td>
-                        <td>@component.Manufacturer</td>
-                        <td>@component.CountryOfOrigin</td>
-                        <td>@component.ReleaseDate</td>
-                        <td>@component.Specifications</td>
-                        <td>@component.WarrantyPeriod</td>
-                        <td>@component.Description</td>
-                        <td>@component.Price</td>
-                    </tr>
-                }
-            </table>
-        </td>
+<h1>Cyber Care Services</h1>
+    <h3>> Типы компонентов</h3>
+<table>
+    <tr class="first-line">
+        <th width="5%">#</th>
+        <th width="20%">Название типа</th>
+        <th>Описание</th>
     </tr>
+    @foreach (var componentType in Model.ComponentTypes)
+    {
+        <tr>
+            <td>@componentType.ComponentTypeId</td>
+            <td>@componentType.Name</td>
+            <td>@componentType.Description</td>
+        </tr>
+    }
 </table>
 
-<table border="1">
-    <caption>Клиенты</caption>
+<h3>> Компоненты</h3>
+<table>
     <tr>
-        <th>Код клиента</th>
+        <th width="2%">#</th>
+        <th width="10%">Тип компонента</th>
+        <th width="10%">Бренд</th>
+        <th width="10%">Производитель</th>
+        <th width="10%">Страна</th>
+        <th width="10%">Дата выхода</th>
+        <th width="18%">Спецификация</th>
+        <th width="5%">Гарантия (мес.)</th>
+        <th width="18%">Описание</th>
+        <th width="5%">Цена</th>
+    </tr>
+    @foreach (var component in Model.Components)
+    {
+        <tr>
+            <td>@component.ComponentId</td>
+            <td>@component.ComponentType</td>
+            <td>@component.Brand</td>
+            <td>@component.Manufacturer</td>
+            <td>@component.CountryOfOrigin</td>
+            <td>@component.ReleaseDate</td>
+            <td>@component.Specifications</td>
+            <td>@component.WarrantyPeriod</td>
+            <td>@component.Description</td>
+            <td>@component.Price</td>
+        </tr>
+    }
+</table>
+
+<h3>> Клиенты</h3>
+<table>
+    <tr>
+        <th>#</th>
         <th>Полное имя</th>
         <th>Адрес</th>
         <th>Телефон</th>
@@ -74,24 +66,24 @@
     @foreach (var customer in Model.Customers)
     {
         <tr>
-            <td>@customer.CustomerId</td>
+            <td width="5%">@customer.CustomerId</td>
             <td>@customer.FullName</td>
             <td>@customer.Address</td>
             <td>@customer.Phone</td>
-            <td>@customer.DiscountAvailable</td>
-            <td>@customer.DiscountAmount</td>
+            <td width="10%">@customer.DiscountAvailable</td>
+            <td width="10%">@customer.DiscountAmount</td>
         </tr>
     }
 </table>
 
-<table border="1">
-    <caption>Сотрудники</caption>
+<h3>> Сотрудники</h3>
+<table>
     <tr>
-        <th>Код сотрудника</th>
+        <th width="5%">#</th>
         <th>Полное имя</th>
         <th>Должность</th>
-        <th>Дата приёма на работу</th>
-        <th>День рождения</th>
+        <th width="10%">Принят на работу</th>
+        <th width="10%">День рождения</th>
         <th>Телефон</th>
         <th>EMail</th>
     </tr>
@@ -109,13 +101,13 @@
     }
 </table>
 
-<table border="1">
-    <caption>Услуги</caption>
+<h3>> Услуги</h3>
+<table>
     <tr>
-        <th>Код услуги</th>
-        <th>Название услуги</th>
+        <th width="2%">#</th>
+        <th width="20%">Название услуги</th>
         <th>Описание</th>
-        <th>Стоимость</th>
+        <th width="10%">Стоимость</th>
     </tr>
     @foreach (var service in Model.Services)
     {
@@ -128,19 +120,19 @@
     }
 </table>
 
-<table border="1">
-    <caption>Заказы</caption>
+<h3>> Заказы</h3>
+<table>
     <tr>
-        <th>Код заказа</th>
-        <th>Принят</th>
-        <th>Выполнен</th>
-        <th>Код клиента</th>
+        <th width="5%">#</th>
+        <th width="7.5%">Принят</th>
+        <th width="7.5%">Выполнен</th>
+        <th width="15%">Клиент</th>
         <th>Предоплата</th>
         <th>Статус оплаты</th>
         <th>Статус выполнения</th>
         <th>Общая стоимость</th>
         <th>Гарантия (мес.)</th>
-        <th>Код сотрудника</th>
+        <th width="15%">Cотрудник</th>
     </tr>
     @foreach (var order in Model.Orders)
     {
@@ -148,7 +140,7 @@
             <td>@order.OrderId</td>
             <td>@order.OrderDate</td>
             <td>@order.CompletionDate</td>
-            <td>@order.CustomerId</td>
+            <td>@Model.Customers.FirstOrDefault(c => c.CustomerId == @order.CustomerId, new Customer(){FullName = "Customer is not found"}).FullName</td>
             <td>@order.Prepayment</td>
             <td>@(order.PaymentStatus ? "Оплачено" : "Не оплачено")</td>
             <td>@order.CompletionStatus</td>
