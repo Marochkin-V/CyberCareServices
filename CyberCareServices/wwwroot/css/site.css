@@ -43,6 +43,11 @@ table {
     box-shadow: black 0 0 10px;
 }
 
+.components-table td{
+    font-size: 12px;
+    padding: 5px 8px;
+}
+
 td, th {
     font-size: 14px;
     border: 2px dotted #d9d9d9;
@@ -52,9 +57,15 @@ td, th {
 tr:nth-child(2n) {
     background: #c1121f;
 }
+table tr td:first-child {
+    text-align: center;
+    width: 50px;
+    font-weight: bold;
+}
 
 th {
     border-bottom: 4px double;
+    text-align: center;
 }
 
 /* ========== Заголовок страницы ========== */

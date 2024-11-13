@@ -1,0 +1,43 @@
+﻿@using CyberCareServices.Model
+@model CyberCareServices.ViewModels.CustomersViewModel
+
+@{
+    ViewData["Title"] = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Customers</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Address</th>
+            <th width="10%">Phone</th>
+            <th width="10%">Discount Active</th>
+            <th width="10%">Discount %</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.CustomerId</td>
+                <td>@customer.FullName</td>
+                <td>@customer.Address</td>
+                <td>@customer.Phone</td>
+                <td>@(customer.DiscountAvailable ? "Yes" : "No")</td>
+                <td>@(customer.DiscountAmount.HasValue ? customer.DiscountAmount.Value.ToString("F2") : "N/A")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@customer.CustomerId">View</a> |
+                    <a asp-action="Edit" asp-route-id="@customer.CustomerId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@customer.CustomerId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Add New Customer</a>

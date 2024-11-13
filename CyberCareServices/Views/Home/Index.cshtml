@@ -5,12 +5,12 @@
 }
 
 <h1>Cyber Care Services</h1>
-    <h3>> Типы компонентов</h3>
+<h3>> Component Types</h3>
 <table>
     <tr>
-        <th width="5%">#</th>
-        <th width="20%">Название типа</th>
-        <th>Описание</th>
+        <th>#</th>
+        <th width="20%">Type Name</th>
+        <th>Description</th>
     </tr>
     @foreach (var componentType in Model.ComponentTypes)
     {
@@ -22,19 +22,19 @@
     }
 </table>
 
-<h3>> Компоненты</h3>
+<h3>> Components</h3>
 <table>
     <tr>
-        <th width="2%">#</th>
-        <th width="10%">Тип компонента</th>
-        <th width="10%">Бренд</th>
-        <th width="10%">Производитель</th>
-        <th width="10%">Страна</th>
-        <th width="10%">Дата выхода</th>
-        <th width="18%">Спецификация</th>
-        <th width="5%">Гарантия (мес.)</th>
-        <th width="18%">Описание</th>
-        <th width="5%">Цена</th>
+        <th>#</th>
+        <th width="10%">Component Type</th>
+        <th width="7%">Brand</th>
+        <th width="10%">Manufacturer</th>
+        <th width="7%">Country</th>
+        <th width="7%">Release Date</th>
+        <th>Specifications</th>
+        <th width="5%">Warranty (months)</th>
+        <th>Description</th>
+        <th width="5%">Price</th>
     </tr>
     @foreach (var component in Model.Components)
     {
@@ -53,39 +53,39 @@
     }
 </table>
 
-<h3>> Клиенты</h3>
+<h3>> Customers</h3>
 <table>
     <tr>
         <th>#</th>
-        <th>Полное имя</th>
-        <th>Адрес</th>
-        <th>Телефон</th>
-        <th>Активность скидки</th>
-        <th>Скидка %</th>
+        <th>Full Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th width="10%">Discount Active</th>
+        <th width="10%">Discount %</th>
     </tr>
     @foreach (var customer in Model.Customers)
     {
         <tr>
-            <td width="5%">@customer.CustomerId</td>
+            <td>@customer.CustomerId</td>
             <td>@customer.FullName</td>
             <td>@customer.Address</td>
             <td>@customer.Phone</td>
-            <td width="10%">@customer.DiscountAvailable</td>
-            <td width="10%">@customer.DiscountAmount</td>
+            <td>@customer.DiscountAvailable</td>
+            <td>@customer.DiscountAmount</td>
         </tr>
     }
 </table>
 
-<h3>> Сотрудники</h3>
+<h3>> Employees</h3>
 <table>
     <tr>
-        <th width="5%">#</th>
-        <th>Полное имя</th>
-        <th>Должность</th>
-        <th width="10%">Принят на работу</th>
-        <th width="10%">День рождения</th>
-        <th>Телефон</th>
-        <th>EMail</th>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Position</th>
+        <th width="10%">Hired On</th>
+        <th width="10%">Date of Birth</th>
+        <th>Phone</th>
+        <th>Email</th>
     </tr>
     @foreach (var employee in Model.Employees)
     {
@@ -101,13 +101,13 @@
     }
 </table>
 
-<h3>> Услуги</h3>
+<h3>> Services</h3>
 <table>
     <tr>
-        <th width="2%">#</th>
-        <th width="20%">Название услуги</th>
-        <th>Описание</th>
-        <th width="10%">Стоимость</th>
+        <th>#</th>
+        <th width="20%">Service Name</th>
+        <th>Description</th>
+        <th width="10%">Cost</th>
     </tr>
     @foreach (var service in Model.Services)
     {
@@ -120,19 +120,19 @@
     }
 </table>
 
-<h3>> Заказы</h3>
+<h3>> Orders</h3>
 <table>
     <tr>
-        <th width="5%">#</th>
-        <th width="7.5%">Принят</th>
-        <th width="7.5%">Выполнен</th>
-        <th width="15%">Клиент</th>
-        <th>Предоплата</th>
-        <th>Статус оплаты</th>
-        <th>Статус выполнения</th>
-        <th>Общая стоимость</th>
-        <th>Гарантия (мес.)</th>
-        <th width="15%">Cотрудник</th>
+        <th>#</th>
+        <th width="7.5%">Received</th>
+        <th width="7.5%">Completed</th>
+        <th width="15%">Customer</th>
+        <th>Prepayment</th>
+        <th>Payment Status</th>
+        <th>Completion Status</th>
+        <th>Total Cost</th>
+        <th>Warranty (months)</th>
+        <th width="15%">Employee</th>
     </tr>
     @foreach (var order in Model.Orders)
     {
@@ -140,9 +140,9 @@
             <td>@order.OrderId</td>
             <td>@order.OrderDate</td>
             <td>@order.CompletionDate</td>
-            <td>@Model.Customers.FirstOrDefault(c => c.CustomerId == @order.CustomerId, new Customer(){FullName = "Customer is not found"}).FullName</td>
+            <td>@Model.Customers.FirstOrDefault(c => c.CustomerId == @order.CustomerId, new Customer() { FullName = "Customer is not found" }).FullName</td>
             <td>@order.Prepayment</td>
-            <td>@(order.PaymentStatus ? "Оплачено" : "Не оплачено")</td>
+            <td>@(order.PaymentStatus ? "Paid" : "Not Paid")</td>
             <td>@order.CompletionStatus</td>
             <td>@order.TotalCost</td>
             <td>@order.WarrantyPeriod</td>

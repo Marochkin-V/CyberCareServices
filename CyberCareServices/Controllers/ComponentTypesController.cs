@@ -28,7 +28,7 @@ namespace CyberCareServices.Controllers
                 })
                 .ToListAsync();
 
-            var viewModel = new ComponentTypeViewModel
+            var viewModel = new ComponentTypesViewModel
             {
                 ComponentTypes = componentTypes
             };

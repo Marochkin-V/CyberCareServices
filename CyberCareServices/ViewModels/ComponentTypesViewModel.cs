@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CyberCareServices.ViewModels
 {
-    public class ComponentTypeViewModel
+    public class ComponentTypesViewModel
     {
         public IEnumerable<ComponentType> ComponentTypes { get; set; }
     }

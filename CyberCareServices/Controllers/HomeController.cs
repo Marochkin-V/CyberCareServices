@@ -19,7 +19,7 @@ namespace CyberCareServices.Controllers
 
         public IActionResult Index()
         {
-            int rowsCount = 10;
+            int rowsCount = 5;
             var viewModel = new HomeViewModel
             {
                 ComponentTypes = _context.ComponentTypes.Take(rowsCount),

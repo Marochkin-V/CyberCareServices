@@ -9,10 +9,10 @@ public partial class ComponentType
     [Display(Name = "#")]
     public int ComponentTypeId { get; set; }
 
-    [Display(Name = "Название")]
+    [Display(Name = "Name")]
     public string Name { get; set; } = null!;
 
-    [Display(Name = "Описание")]
+    [Display(Name = "Description")]
     public string? Description { get; set; }
 
     public virtual ICollection<Component> Components { get; set; } = new List<Component>();
