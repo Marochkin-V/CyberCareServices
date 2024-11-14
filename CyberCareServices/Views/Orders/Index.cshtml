@@ -1,0 +1,71 @@
+﻿@using CyberCareServices.ViewModels
+@model OrdersViewModel
+
+@{
+    ViewData["Title"] = "Orders Overview";
+}
+
+<h1>Orders</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th width="7.5%">Received</th>
+            <th width="7.5%">Completed</th>
+            <th width="15%">Customer</th>
+            <th>Prepayment</th>
+            <th>Payment Status</th>
+            <th>Completion Status</th>
+            <th>Total Cost</th>
+            <th>Warranty (months)</th>
+            <th width="15%">Employee</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                <td>@order.CompletionDate?.ToString("yyyy-MM-dd")</td>
+                <td>@order.CustomerName</td>
+                <td>@order.Prepayment</td>
+                <td>@(order.PaymentStatus ? "Paid" : "Unpaid")</td>
+                <td>@(order.CompletionStatus ? "Completed" : "Pending")</td>
+                <td>@order.TotalCost</td>
+                <td>@order.WarrantyPeriod</td>
+                <td>@order.EmployeeName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@order.OrderId">View</a> |
+                    <a asp-action="Edit" asp-route-id="@order.OrderId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@order.OrderId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="pagination-container">
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="page page-outline-dark">
+            &lt;---
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="page page-outline-dark">
+            ---&gt;
+        </a>
+    }
+</div>
+
+<div class="add-order-container">
+    <a asp-action="Create" class="page page-primary">Add New Order</a>
+</div>
+
