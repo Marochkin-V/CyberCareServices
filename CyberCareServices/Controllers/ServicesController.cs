@@ -1,30 +1,56 @@
 ﻿using CyberCareServices.Data;
+using CyberCareServices.Model;
+using CyberCareServices.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CyberCareServices.Controllers
 {
     public class ServicesController : Controller
     {
-        public CyberCareServicesContext _context;
+        private readonly CyberCareServicesContext _context;
+
         public ServicesController(CyberCareServicesContext context)
         {
             _context = context;
         }
+
         // GET: ServicesController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var services = await _context.Services
+                .Select(s => new Service
+                {
+                    ServiceId = s.ServiceId,
+                    Name = s.Name,
+                    Description = s.Description,
+                    Cost = s.Cost,
+                })
+                .ToListAsync();
+
+            var viewModel = new ServicesViewModel
+            {
+                Services = services
+            };
+
+            return View(viewModel);
         }
 
         // GET: ServicesController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            return View(service);
         }
 
         // GET: ServicesController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -32,58 +58,87 @@ namespace CyberCareServices.Controllers
         // POST: ServicesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(Service service)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _context.Add(service);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(service);
         }
 
         // GET: ServicesController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+            return View(service);
         }
 
         // POST: ServicesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, Service service)
         {
-            try
+            if (id != service.ServiceId)
             {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(service);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ServiceExists(service.ServiceId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(service);
         }
 
         // GET: ServicesController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            return View(service);
         }
 
         // POST: ServicesController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var service = await _context.Services.FindAsync(id);
+            _context.Services.Remove(service);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ServiceExists(int id)
+        {
+            return _context.Services.Any(e => e.ServiceId == id);
         }
     }
 }

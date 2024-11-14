@@ -1,0 +1,37 @@
+﻿@model CyberCareServices.ViewModels.ServicesViewModel
+
+@{
+    ViewData["Title"] = "Services Overview";
+}
+
+<h1>Services</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Cost</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model.Services)
+        {
+            <tr>
+                <td>@service.ServiceId</td>
+                <td>@service.Name</td>
+                <td>@service.Description</td>
+                <td>@service.Cost.ToString("C")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@service.ServiceId">View</a>
+                    <a asp-action="Edit" asp-route-id="@service.ServiceId">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@service.ServiceId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Add New Service</a>
