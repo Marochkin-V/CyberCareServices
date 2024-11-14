@@ -27,7 +27,7 @@ namespace CyberCareServices.Controllers
                 Employees = _context.Employees.Take(rowsCount),
                 Services = _context.Services.Take(rowsCount),
                 Components = [.. _context.Components.OrderByDescending(c => c.ReleaseDate)
-                    .Select(c => new ComponentsViewModel{
+                    .Select(c => new ComponentViewModel{
                         ComponentId = c.ComponentId,
                         ComponentType = _context.ComponentTypes.FirstOrDefault(ct => ct.ComponentTypeId == c.ComponentTypeId).Name,
                         Brand = c.Brand,

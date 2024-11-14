@@ -151,7 +151,7 @@ header {
 }
 
 /* Контейнер для кнопки добавления */
-.add-order-container {
+.add-container {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;

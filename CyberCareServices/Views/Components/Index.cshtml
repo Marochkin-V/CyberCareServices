@@ -1,5 +1,5 @@
-﻿@using CyberCareServices.Model
-@model IEnumerable<CyberCareServices.ViewModels.ComponentsViewModel>
+﻿@using CyberCareServices.ViewModels
+@model ComponentsViewModel
 
 @{
     ViewData["Title"] = "Components Overview";
@@ -24,7 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var component in Model)
+        @foreach (var component in Model.Components)
         {
             <tr>
                 <td>@component.ComponentId</td>
@@ -46,6 +46,25 @@
         }
     </tbody>
 </table>
+<div class="pagination-container">
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="page page-outline-dark">
+            &lt;---
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="page page-outline-dark">
+            ---&gt;
+        </a>
+    }
+</div>
 
-
-<a asp-action="Create" class="btn btn-primary">Добавить новый компонент</a>
+<div class="add-container">
+    <a asp-action="Create" class="page page-primary">Add New Component</a>
+</div>

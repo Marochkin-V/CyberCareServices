@@ -11,6 +11,7 @@ namespace CyberCareServices.Controllers
     public class ComponentsController : Controller
     {
         private readonly CyberCareServicesContext _context;
+        private readonly int PageSize = 20;
 
         public ComponentsController(CyberCareServicesContext context)
         {
@@ -18,11 +19,13 @@ namespace CyberCareServices.Controllers
         }
 
         // GET: Components
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             var components = await _context.Components
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
                 .Include(c => c.ComponentType)
-                .Select(c => new ComponentsViewModel
+                .Select(c => new ComponentViewModel
                 {
                     ComponentId = c.ComponentId,
                     ComponentType = c.ComponentType.Name,
@@ -37,7 +40,12 @@ namespace CyberCareServices.Controllers
                 })
                 .ToListAsync();
 
-            return View(components);
+            var componentsvm = new ComponentsViewModel()
+            {
+                Components = components,
+                PageViewModel = new PageViewModel(_context.Orders.Count(), page, PageSize)
+            };
+            return View(componentsvm);
         }
 
         // GET: Components/Details/5
@@ -46,7 +54,7 @@ namespace CyberCareServices.Controllers
             var component = await _context.Components
                 .Include(c => c.ComponentType)
                 .Where(c => c.ComponentId == id)
-                .Select(c => new ComponentsViewModel
+                .Select(c => new ComponentViewModel
                 {
                     ComponentId = c.ComponentId,
                     ComponentType = c.ComponentType.Name,
@@ -78,7 +86,7 @@ namespace CyberCareServices.Controllers
         // POST: Components/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ComponentType,Brand,Manufacturer,CountryOfOrigin,ReleaseDate,Specifications,WarrantyPeriod,Description,Price")] ComponentsViewModel model)
+        public async Task<IActionResult> Create([Bind("ComponentType,Brand,Manufacturer,CountryOfOrigin,ReleaseDate,Specifications,WarrantyPeriod,Description,Price")] ComponentViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -118,7 +126,7 @@ namespace CyberCareServices.Controllers
             var component = await _context.Components
                 .Include(c => c.ComponentType)
                 .Where(c => c.ComponentId == id)
-                .Select(c => new ComponentsViewModel
+                .Select(c => new ComponentViewModel
                 {
                     ComponentId = c.ComponentId,
                     ComponentType = c.ComponentType.Name,
@@ -144,7 +152,7 @@ namespace CyberCareServices.Controllers
         // POST: Components/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ComponentId,ComponentType,Brand,Manufacturer,CountryOfOrigin,ReleaseDate,Specifications,WarrantyPeriod,Description,Price")] ComponentsViewModel model)
+        public async Task<IActionResult> Edit(int id, [Bind("ComponentId,ComponentType,Brand,Manufacturer,CountryOfOrigin,ReleaseDate,Specifications,WarrantyPeriod,Description,Price")] ComponentViewModel model)
         {
             if (id != model.ComponentId)
             {
@@ -210,7 +218,7 @@ namespace CyberCareServices.Controllers
             var component = await _context.Components
                 .Include(c => c.ComponentType)
                 .Where(c => c.ComponentId == id)
-                .Select(c => new ComponentsViewModel
+                .Select(c => new ComponentViewModel
                 {
                     ComponentId = c.ComponentId,
                     ComponentType = c.ComponentType.Name,

@@ -9,7 +9,7 @@ namespace CyberCareServices.Controllers
     public class OrdersController : Controller
     {
         private readonly CyberCareServicesContext _context;
-        private readonly int PageSize = 10;
+        private readonly int PageSize = 20;
 
         public OrdersController(CyberCareServicesContext context)
         {

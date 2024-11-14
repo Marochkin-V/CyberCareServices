@@ -8,7 +8,7 @@ namespace CyberCareServices.ViewModels
         public IEnumerable<Customer> Customers { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
         public IEnumerable<Service> Services { get; set; }
-        public IEnumerable<ComponentsViewModel> Components { get; set; }
+        public IEnumerable<ComponentViewModel> Components { get; set; }
         public IEnumerable<Order> Orders { get; set; }
     }
 }

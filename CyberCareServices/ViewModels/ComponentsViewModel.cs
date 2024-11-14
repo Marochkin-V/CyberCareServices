@@ -1,36 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Azure;
+using CyberCareServices.Model;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CyberCareServices.ViewModels
 {
     public class ComponentsViewModel
     {
-        public int ComponentId { get; set; }
+        public IEnumerable<ComponentViewModel> Components { get; set; }
 
-        [Display(Name = "ID компонента")]
-        public string ComponentType { get; set; }
-
-        [Display(Name = "Бренд")]
-        public string Brand { get; set; } = null!;
-
-        [Display(Name = "Производитель")]
-        public string? Manufacturer { get; set; }
-
-        [Display(Name = "Страна")]
-        public string? CountryOfOrigin { get; set; }
-
-        [Display(Name = "Дата выхода")]
-        public DateOnly? ReleaseDate { get; set; }
-
-        [Display(Name = "Спецификация")]
-        public string? Specifications { get; set; }
-
-        [Display(Name = "Гарантийный период")]
-        public int? WarrantyPeriod { get; set; }
-
-        [Display(Name = "Описание")]
-        public string? Description { get; set; }
-
-        [Display(Name = "Цена")]
-        public decimal Price { get; set; }
+        public PageViewModel PageViewModel { get; set; }
     }
 }
