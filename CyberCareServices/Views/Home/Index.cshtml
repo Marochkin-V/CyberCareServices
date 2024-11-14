@@ -140,13 +140,13 @@
             <td>@order.OrderId</td>
             <td>@order.OrderDate</td>
             <td>@order.CompletionDate</td>
-            <td>@Model.Customers.FirstOrDefault(c => c.CustomerId == @order.CustomerId, new Customer() { FullName = "Customer is not found" }).FullName</td>
+            <td>@order.CustomerName</td>
             <td>@order.Prepayment</td>
             <td>@(order.PaymentStatus ? "Paid" : "Not Paid")</td>
             <td>@order.CompletionStatus</td>
             <td>@order.TotalCost</td>
             <td>@order.WarrantyPeriod</td>
-            <td>@order.EmployeeId</td>
+            <td>@order.EmployeeName</td>
         </tr>
     }
 </table>

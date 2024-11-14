@@ -29,7 +29,7 @@ namespace CyberCareServices.Controllers
                 Components = [.. _context.Components.OrderByDescending(c => c.ReleaseDate)
                     .Select(c => new ComponentViewModel{
                         ComponentId = c.ComponentId,
-                        ComponentType = _context.ComponentTypes.FirstOrDefault(ct => ct.ComponentTypeId == c.ComponentTypeId).Name,
+                        ComponentType = _context.ComponentTypes.FirstOrDefault(ct => ct.ComponentTypeId == c.ComponentTypeId).Name ?? "Component Type is not found",
                         Brand = c.Brand,
                         Manufacturer = c.Manufacturer,
                         CountryOfOrigin = c.CountryOfOrigin,
@@ -40,7 +40,20 @@ namespace CyberCareServices.Controllers
                         Price = c.Price,
                     })
                     .Take(rowsCount)],
-                Orders = _context.Orders.ToList().Take(rowsCount),
+                Orders = [.. _context.Orders
+                    .Select(o => new OrderViewModel{
+                        OrderId = o.OrderId,
+                        OrderDate = o.OrderDate,
+                        CompletionDate = o.CompletionDate,
+                        CustomerName = _context.Customers.FirstOrDefault(c => c.CustomerId == o.CustomerId).FullName ?? "Customer is not found",
+                        Prepayment = o.Prepayment,
+                        PaymentStatus = o.PaymentStatus,
+                        CompletionStatus = o.CompletionStatus,
+                        TotalCost = o.TotalCost,
+                        WarrantyPeriod = o.WarrantyPeriod,
+                        EmployeeName = _context.Employees.FirstOrDefault(e => e.EmployeeId == o.EmployeeId).FullName ?? "Employee is not found",
+                })
+                    .Take(rowsCount)]
             };
 
             return View(viewModel);
