@@ -73,9 +73,13 @@ table tr {
     transition: background-color 0.2s ease-in-out, transform 0.2s ease;
 }
 
-table tr:hover {
+table tr:hover{
     background-color: #003049;
-    transform: scale(1.01);
+    transform: scale(1.02);
+}
+
+table tr:hover td{
+    border: none;
 }
 
 

@@ -17,6 +17,7 @@ namespace CyberCareServices.Controllers
             _context = context;
         }
 
+        [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
         public IActionResult Index()
         {
             int rowsCount = 5;

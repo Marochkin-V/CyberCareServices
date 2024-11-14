@@ -19,6 +19,7 @@ namespace CyberCareServices.Controllers
         }
 
         // GET: Components
+        [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<IActionResult> Index(int page = 1)
         {
             var components = await _context.Components

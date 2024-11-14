@@ -17,6 +17,7 @@ namespace CyberCareServices.Controllers
         }
 
         // GET: ServicesController
+        [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<IActionResult> Index()
         {
             var services = await _context.Services

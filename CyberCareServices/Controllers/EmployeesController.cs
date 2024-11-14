@@ -19,6 +19,7 @@ namespace CyberCareServices.Controllers
         }
 
         // GET: Employees
+        [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<IActionResult> Index()
         {
             var employees = await _context.Employees.ToListAsync();
