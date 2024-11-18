@@ -38,9 +38,15 @@
                 <td>@(string.IsNullOrEmpty(component.Description) ? "Not specified" : component.Description)</td>
                 <td>@component.Price.ToString("C2")</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@component.ComponentId">View</a> |
-                    <a asp-action="Edit" asp-route-id="@component.ComponentId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@component.ComponentId">Delete</a>
+                    <a asp-action="Details" asp-route-id="@component.ComponentId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-eye details-i"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@component.ComponentId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@component.ComponentId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
                 </td>
             </tr>
         }

@@ -70,7 +70,7 @@ namespace CyberCareServices.Controllers
             return View(componentType);
         }
 
-        // GET: ComponentTypes/Edit/5
+        // GET: ComponentTypes/Edit/
         public async Task<IActionResult> Edit(int id)
         {
             var componentType = await _context.ComponentTypes.FindAsync(id);
@@ -81,7 +81,7 @@ namespace CyberCareServices.Controllers
             return View(componentType);
         }
 
-        // POST: ComponentTypes/Edit/5
+        // POST: ComponentTypes/Edit/
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ComponentTypeId,Name,Description")] ComponentType componentType)
@@ -114,7 +114,7 @@ namespace CyberCareServices.Controllers
             return View(componentType);
         }
 
-        // GET: ComponentTypes/Delete/5
+        // GET: ComponentTypes/Delete/
         public async Task<IActionResult> Delete(int id)
         {
             var componentType = await _context.ComponentTypes
@@ -127,7 +127,7 @@ namespace CyberCareServices.Controllers
             return View(componentType);
         }
 
-        // POST: ComponentTypes/Delete/5
+        // POST: ComponentTypes/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -138,8 +138,9 @@ namespace CyberCareServices.Controllers
                 _context.ComponentTypes.Remove(componentType);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
+
 
         private bool ComponentTypeExists(int id)
         {

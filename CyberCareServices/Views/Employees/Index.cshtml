@@ -32,9 +32,15 @@
                 <td>@employee.Phone</td>
                 <td>@employee.Email</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@employee.EmployeeId">Просмотр</a> |
-                    <a asp-action="Edit" asp-route-id="@employee.EmployeeId">Редактировать</a> |
-                    <a asp-action="Delete" asp-route-id="@employee.EmployeeId">Удалить</a>
+                    <a asp-action="Details" asp-route-id="@employee.EmployeeId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-eye details-i"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
                 </td>
             </tr>
         }

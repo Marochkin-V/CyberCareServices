@@ -31,9 +31,15 @@
                 <td>@(customer.DiscountAvailable ? "Yes" : "No")</td>
                 <td>@(customer.DiscountAmount.HasValue ? customer.DiscountAmount.Value.ToString("F2") : "N/A")</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@customer.CustomerId">View</a> |
-                    <a asp-action="Edit" asp-route-id="@customer.CustomerId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@customer.CustomerId">Delete</a>
+                    <a asp-action="Details" asp-route-id="@customer.CustomerId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-eye details-i"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@customer.CustomerId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@customer.CustomerId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
                 </td>
             </tr>
         }

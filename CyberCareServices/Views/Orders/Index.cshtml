@@ -11,15 +11,15 @@
     <thead>
         <tr>
             <th>#</th>
-            <th width="7.5%">Received</th>
-            <th width="7.5%">Completed</th>
-            <th width="15%">Customer</th>
-            <th>Prepayment</th>
-            <th>Payment Status</th>
-            <th>Completion Status</th>
-            <th>Total Cost</th>
-            <th>Warranty (months)</th>
-            <th width="15%">Employee</th>
+            <th width="5%">Received</th>
+            <th width="5%">Completed</th>
+            <th>Customer</th>
+            <th width="5%">Prepayment</th>
+            <th width="5%">Payment Status</th>
+            <th width="5%">Completion Status</th>
+            <th width="5%">Total Cost</th>
+            <th width="5%">Warranty (months)</th>
+            <th>Employee</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -38,9 +38,15 @@
                 <td>@order.WarrantyPeriod</td>
                 <td>@order.EmployeeName</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@order.OrderId">View</a> |
-                    <a asp-action="Edit" asp-route-id="@order.OrderId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@order.OrderId">Delete</a>
+                    <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-eye details-i"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@order.OrderId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@order.OrderId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
                 </td>
             </tr>
         }

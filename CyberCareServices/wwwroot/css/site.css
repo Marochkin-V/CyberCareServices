@@ -27,6 +27,7 @@ h1 {
     word-spacing: 25px;
     letter-spacing: 10px;
     text-shadow: 3px 3px 3px black;
+    margin: 30px 0px;
 }
 
 h3 {
@@ -62,6 +63,12 @@ table tr td:first-child {
     text-align: center;
     width: 50px;
     font-weight: bold;
+}
+
+table td:last-child,
+table th:last-child {
+    width: 150px;
+    text-align: center;
 }
 
 th {
@@ -192,5 +199,117 @@ header {
     .page:hover, .page-outline-dark:hover, .page-primary:hover {
         background-color: #003049;
         color: #fdf0d5;
-        transform: scale(1.1);
+    }
+
+.cruid-icon {
+    font-size: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 3px;
+    transition: 0.2s;
+    color: #fdf0d5;
+}
+
+.cruid-icon:hover {
+    transform: scale(1.2);
+}
+
+.details-i:hover{
+    color: greenyellow;
+}
+
+.edit-i:hover{
+    color: skyblue;
+}
+
+.delete-i {
+    color: #fdf0d5;
+}
+
+.delete-i:hover{
+    color: red;
+}
+
+.form-group{
+    margin: 10px 20px;
+}
+
+.control-label{
+
+}
+.form-control {
+    background-color: #7D060F;
+    color: #fdf0d5;
+    transition: 0.2s ease;
+    border-radius: 0px;
+    border: 1px solid #fdf0d5;
+}
+
+.text-danger{
+
+}
+
+.textarea-custom:focus {
+    background-color: #fdf0d5;
+    color: #7D060F;
+    font-family: 'Lucida Console';
+    box-shadow: 0 0 8px black;
+    border-color: #7D060F;
+}
+
+.save-btn {
+    width: 70%;
+    margin: 10px;
+}
+
+.btn-center{
+    text-align: center;
+}
+
+.backtolist-btn {
+    text-align: center;
+    position: fixed;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50%;
+    writing-mode: vertical-lr;
+    margin: 0px;
+    transition: all 0.2s;
+    letter-spacing: 8px;
+}
+    .backtolist-btn:hover {
+        left: -2px;
+        transform: translateY(-50%);
+        height: 60%;
+    }
+
+.plus-ico {
+    display: flex; /* Добавим flexbox для корректного выравнивания */
+    justify-content: center;
+    align-items: center;
+}
+    .plus-ico a {
+        color: #fdf0d5;
+        font-size: 30px;
+        padding: 0px;
+        display: inline-block; /* Убедимся, что иконка занимает нужное место */
+        transition: 0.2s ease;
+    }
+
+    .plus-ico a:hover {
+        color: #912E36;
+    }
+
+.table-name {
+    display: flex;
+    justify-content: center; /* Размещаем элементы по краям */
+    align-items: center; /* Центрируем по вертикали */
+    gap: 10px;
+}
+
+    .table-name h1 {
+        margin: 0; /* Убираем стандартные отступы */
     }

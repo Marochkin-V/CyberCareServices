@@ -5,7 +5,13 @@
     ViewData["Title"] = "Component Types Overview";
 }
 
-<h1>Component Types</h1>
+<div class="table-name">
+    <h1>Component Types</h1>
+    <div class="plus-ico">
+        <a asp-action="Create"><i class="bi bi-plus-circle-dotted"></i></a>
+    </div>
+</div>
+
 
 <table>
     <thead>
@@ -24,9 +30,15 @@
                 <td>@componentType.Name</td>
                 <td>@(string.IsNullOrEmpty(componentType.Description) ? "Нет описания" : componentType.Description)</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@componentType.ComponentTypeId">Просмотр</a> |
-                    <a asp-action="Edit" asp-route-id="@componentType.ComponentTypeId">Редактировать</a> |
-                    <a asp-action="Delete" asp-route-id="@componentType.ComponentTypeId">Удалить</a>
+                    <a asp-action="Details" asp-route-id="@componentType.ComponentTypeId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-eye details-i"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@componentType.ComponentTypeId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@componentType.ComponentTypeId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
                 </td>
             </tr>
         }
@@ -34,5 +46,5 @@
 </table>
 
 <div class="add-container">
-    <a asp-action="Create" class="page page-primary">Add New Component Type</a>
+    <a asp-action="Create" class="page page-primary">Add New Component Type <i class="bi bi-plus-square-dotted"></i></a>
 </div>

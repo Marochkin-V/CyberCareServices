@@ -25,9 +25,15 @@
                 <td>@service.Description</td>
                 <td>@service.Cost.ToString("C")</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@service.ServiceId">View</a>
-                    <a asp-action="Edit" asp-route-id="@service.ServiceId">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@service.ServiceId">Delete</a>
+                    <a asp-action="Details" asp-route-id="@service.ServiceId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-eye details-i"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@service.ServiceId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@service.ServiceId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
                 </td>
             </tr>
         }

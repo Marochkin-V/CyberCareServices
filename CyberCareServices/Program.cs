@@ -42,11 +42,11 @@ namespace CyberCareServices
 
             app.UseSession();
 
-            app.UseAuthorization();
-
 #if InitializationNeeded
             app.UseDbInitializer();
 #endif
+
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
