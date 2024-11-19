@@ -12,7 +12,6 @@
     </div>
 </div>
 
-
 <table>
     <thead>
         <tr>
@@ -25,14 +24,11 @@
     <tbody>
         @foreach (var componentType in Model.ComponentTypes)
         {
-            <tr>
+            <tr onclick="location.href='@Url.Action("Details", "ComponentTypes", new { id = componentType.ComponentTypeId })';">
                 <td>@componentType.ComponentTypeId</td>
                 <td>@componentType.Name</td>
                 <td>@(string.IsNullOrEmpty(componentType.Description) ? "Нет описания" : componentType.Description)</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@componentType.ComponentTypeId" class="btn btn-link cruid-icon">
-                        <i class="bi bi-eye details-i"></i>
-                    </a>
                     <a asp-action="Edit" asp-route-id="@componentType.ComponentTypeId" class="btn btn-link cruid-icon">
                         <i class="bi bi-pencil-square edit-i"></i>
                     </a>

@@ -12,6 +12,20 @@ body {
     font-family: 'Lucida Console';
 }
 
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
 /* ========== Фокус на элементах форм и кнопках ========== */
 .btn:focus,
 .btn:active:focus,
@@ -31,7 +45,7 @@ h1 {
 }
 
 h3 {
-    margin: 25px 0 0 25px;
+    margin: 25px 0 10px 25px;
     text-shadow: 2px 2px 2px black;
 }
 
@@ -67,7 +81,7 @@ table tr td:first-child {
 
 table td:last-child,
 table th:last-child {
-    width: 150px;
+    width: 110px;
     text-align: center;
 }
 
@@ -156,9 +170,13 @@ header {
 /* ========== Пагинатор ========== */
 /* Контейнер для пагинации */
 .pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+    position: fixed; /* Keep the container fixed to the viewport */
+    left: -20px; /* Position it slightly away from the left edge */
+    top: 60%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for centering */
+    display: flex; /* Use flexbox to align buttons vertically */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
 }
 
 /* Контейнер для кнопки добавления */
@@ -166,6 +184,24 @@ header {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
+}
+
+.pagination-btn {
+    text-align: center;
+    width: 50px; /* Set a fixed width for buttons */
+    height: 200px; /* Set a fixed height for buttons */
+    writing-mode: vertical-lr; /* Vertical text */
+    transition: all 0.2s;
+    border: none; /* Remove default border */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+    .pagination-btn:hover {
+        transform: translateX(15px); /* Slightly move up on hover */
+    }
+
+.pgn-arrrows{
+    font-size: 20px;
 }
 
 /* Стили для кнопок */
@@ -308,8 +344,21 @@ header {
     justify-content: center; /* Размещаем элементы по краям */
     align-items: center; /* Центрируем по вертикали */
     gap: 10px;
+    margin: 20px 0px 10px 0px;
 }
 
     .table-name h1 {
         margin: 0; /* Убираем стандартные отступы */
     }
+
+dl.row dt {
+    width: 20%; /* Set your desired width */
+    margin: 5px 0;
+    padding: 0 10px;
+}
+
+dl.row dd {
+    width: 80%; /* Set your desired width */
+    margin: 5px 0;
+    padding: 0 10px;
+}

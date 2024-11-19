@@ -26,7 +26,7 @@
     <tbody>
         @foreach (var order in Model.Orders)
         {
-            <tr>
+            <tr onclick="location.href='@Url.Action("Details", "Orders", new { id = order.OrderId })';">
                 <td>@order.OrderId</td>
                 <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
                 <td>@order.CompletionDate?.ToString("yyyy-MM-dd")</td>
@@ -38,9 +38,6 @@
                 <td>@order.WarrantyPeriod</td>
                 <td>@order.EmployeeName</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-link cruid-icon">
-                        <i class="bi bi-eye details-i"></i>
-                    </a>
                     <a asp-action="Edit" asp-route-id="@order.OrderId" class="btn btn-link cruid-icon">
                         <i class="bi bi-pencil-square edit-i"></i>
                     </a>
@@ -57,16 +54,16 @@
     {
         <a asp-action="Index"
            asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-           class="page page-outline-dark">
-            &lt;---
+           class="page page-outline-dark pagination-btn">
+            <i class="bi bi-arrow-up pgn-arrrows"></i>
         </a>
     }
     @if (Model.PageViewModel.HasNextPage)
     {
         <a asp-action="Index"
            asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-           class="page page-outline-dark">
-            ---&gt;
+           class="page page-outline-dark pagination-btn">
+            <i class="bi bi-arrow-down pgn-arrrows"></i>
         </a>
     }
 </div>

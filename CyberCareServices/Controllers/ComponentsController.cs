@@ -79,9 +79,16 @@ namespace CyberCareServices.Controllers
         }
 
         // GET: Components/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var componentTypes = await _context.ComponentTypes.ToListAsync();
+
+            var editModel = new ComponentEditViewModel
+            {
+                ComponentTypes = componentTypes
+            };
+
+            return View(editModel);
         }
 
         // POST: Components/Create
@@ -147,7 +154,24 @@ namespace CyberCareServices.Controllers
                 return NotFound();
             }
 
-            return View(component);
+            var componentTypes = await _context.ComponentTypes.ToListAsync();
+
+            var editModel = new ComponentEditViewModel
+            {
+                ComponentId = component.ComponentId,
+                ComponentType = component.ComponentType,
+                Brand = component.Brand,
+                Manufacturer = component.Manufacturer,
+                CountryOfOrigin = component.CountryOfOrigin,
+                ReleaseDate = component.ReleaseDate,
+                Specifications = component.Specifications,
+                WarrantyPeriod = component.WarrantyPeriod,
+                Description = component.Description,
+                Price = component.Price,
+                ComponentTypes = componentTypes
+            };
+
+            return View(editModel);
         }
 
         // POST: Components/Edit/5
@@ -178,10 +202,11 @@ namespace CyberCareServices.Controllers
 
                     if (componentType == null)
                     {
-                        ModelState.AddModelError("ComponentType", "Неверный тип компонента.");
+                        ModelState.AddModelError("ComponentType", "Invalid component type.");
                         return View(model);
                     }
 
+                    // Update the component properties
                     component.ComponentTypeId = componentType.ComponentTypeId;
                     component.Brand = model.Brand;
                     component.Manufacturer = model.Manufacturer;

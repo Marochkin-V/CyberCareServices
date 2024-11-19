@@ -23,7 +23,7 @@
     <tbody>
         @foreach (var customer in Model.Customers)
         {
-            <tr>
+            <tr onclick="location.href='@Url.Action("Details", "Customers", new { id = customer.CustomerId })';">
                 <td>@customer.CustomerId</td>
                 <td>@customer.FullName</td>
                 <td>@customer.Address</td>
@@ -31,9 +31,6 @@
                 <td>@(customer.DiscountAvailable ? "Yes" : "No")</td>
                 <td>@(customer.DiscountAmount.HasValue ? customer.DiscountAmount.Value.ToString("F2") : "N/A")</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@customer.CustomerId" class="btn btn-link cruid-icon">
-                        <i class="bi bi-eye details-i"></i>
-                    </a>
                     <a asp-action="Edit" asp-route-id="@customer.CustomerId" class="btn btn-link cruid-icon">
                         <i class="bi bi-pencil-square edit-i"></i>
                     </a>

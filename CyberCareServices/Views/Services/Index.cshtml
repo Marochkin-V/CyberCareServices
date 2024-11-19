@@ -19,15 +19,12 @@
     <tbody>
         @foreach (var service in Model.Services)
         {
-            <tr>
+            <tr onclick="location.href='@Url.Action("Details", "Services", new { id = service.ServiceId })';">
                 <td>@service.ServiceId</td>
                 <td>@service.Name</td>
                 <td>@service.Description</td>
                 <td>@service.Cost.ToString("C")</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@service.ServiceId" class="btn btn-link cruid-icon">
-                        <i class="bi bi-eye details-i"></i>
-                    </a>
                     <a asp-action="Edit" asp-route-id="@service.ServiceId" class="btn btn-link cruid-icon">
                         <i class="bi bi-pencil-square edit-i"></i>
                     </a>

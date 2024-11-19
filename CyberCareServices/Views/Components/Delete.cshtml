@@ -1,5 +1,55 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CyberCareServices.ViewModels.ComponentViewModel
+
 @{
+    ViewData["Title"] = "Delete Component";
 }
+
+<h1>Delete Component</h1>
+
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Component Type</dt>
+        <dd class="col-sm-10">@Model.ComponentType</dd>
+
+        <dt class="col-sm-2">Brand</dt>
+        <dd class="col-sm-10">@Model.Brand</dd>
+
+        <dt class="col-sm-2">Manufacturer</dt>
+        <dd class="col-sm-10">@Model.Manufacturer</dd>
+
+        <dt class="col-sm-2">Country of Origin</dt>
+        <dd class="col-sm-10">@Model.CountryOfOrigin</dd>
+
+        <dt class="col-sm-2">Release Date</dt>
+        <dd class="col-sm-10">@Model.ReleaseDate?.ToString("d")</dd>
+
+        <dt class="col-sm-2">Specifications</dt>
+        <dd class="col-sm-10">@Model.Specifications</dd>
+
+        <dt class="col-sm-2">Warranty Period</dt>
+        <dd class="col-sm-10">@Model.WarrantyPeriod</dd>
+
+        <dt class="col-sm-2">Description</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+
+        <dt class="col-sm-2">Price</dt>
+        <dd class="col-sm-10">@Model.Price.ToString("C")</dd>
+    </dl>
+</div>
+
+<hr />
+
+<h3>Are you sure you want to delete this component?</h3>
+
+<form asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="ComponentId" />
+    <div class="form-group">
+        <input type="submit" value="Delete" class="page page-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
+</div>
