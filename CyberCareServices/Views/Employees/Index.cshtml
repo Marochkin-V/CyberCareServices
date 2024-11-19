@@ -18,10 +18,8 @@
             <th>#</th>
             <th>Full Name</th>
             <th>Position</th>
-            <th width="10%">Hired On</th>
-            <th width="10%">Date of Birth</th>
-            <th>Phone</th>
-            <th>Email</th>
+            <th width="10%">Phone</th>
+            <th width="22%">Email</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -32,8 +30,6 @@
                 <td>@employee.EmployeeId</td>
                 <td>@employee.FullName</td>
                 <td>@employee.Position</td>
-                <td>@employee.DateOfHire.ToString("yyyy-MM-dd")</td>
-                <td>@employee.DateOfBirth?.ToString("yyyy-MM-dd")</td>
                 <td>@employee.Phone</td>
                 <td>@employee.Email</td>
                 <td>

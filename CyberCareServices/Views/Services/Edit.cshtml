@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CyberCareServices.Model.Service
+
 @{
+    ViewData["Title"] = "Edit Service";
 }
+
+<h1>Edit Service</h1>
+<hr />
+<form asp-action="Edit">
+    <input type="hidden" asp-for="ServiceId" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control textarea-custom" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control textarea-custom"></textarea>
+        <span asp-validation-for="Description" class="text -danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cost" class="control-label"></label>
+        <input asp-for="Cost" class="form-control textarea-custom" type="number" step="0.01" />
+        <span asp-validation-for="Cost" class="text-danger"></span>
+    </div>
+    <div class="form-group btn-center">
+        <input type="submit" value="Save" class="page page-primary save-btn" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
+</div>

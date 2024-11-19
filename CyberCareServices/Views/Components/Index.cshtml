@@ -16,16 +16,15 @@
     <thead>
         <tr>
             <th>#</th>
-            <th width="10%">Component Type</th>
+            <th>Component Type</th>
             <th width="5%">Brand</th>
-            <th width="10%">Manufacturer</th>
-            <th width="5%">Country</th>
-            <th width="5%">Release Date</th>
             <th>Specifications</th>
+            <th>Manufacturer</th>
+            <th>Country</th>
+            <th width="5%">Release Date</th>
             <th width="5%">Warranty (months)</th>
-            <th>Description</th>
-            <th width="5%">Price</th>
-            <th width="5%">Actions</th>
+            <th>Price</th>
+            <th >Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -35,12 +34,11 @@
                 <td>@component.ComponentId</td>
                 <td>@component.ComponentType</td>
                 <td>@component.Brand</td>
+                <td>@(string.IsNullOrEmpty(component.Specifications) ? "Not specified" : component.Specifications)</td>
                 <td>@(string.IsNullOrEmpty(component.Manufacturer) ? "Not specified" : component.Manufacturer)</td>
                 <td>@(string.IsNullOrEmpty(component.CountryOfOrigin) ? "Not specified" : component.CountryOfOrigin)</td>
                 <td>@(component.ReleaseDate?.ToString("yyyy-MM-dd") ?? "Not specified")</td>
-                <td>@(string.IsNullOrEmpty(component.Specifications) ? "Not specified" : component.Specifications)</td>
                 <td>@component.WarrantyPeriod</td>
-                <td>@(string.IsNullOrEmpty(component.Description) ? "Not specified" : component.Description)</td>
                 <td>@component.Price.ToString("C2")</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@component.ComponentId" class="btn btn-link cruid-icon">
