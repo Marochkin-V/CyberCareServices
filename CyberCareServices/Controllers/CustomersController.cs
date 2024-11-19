@@ -9,6 +9,7 @@ namespace CyberCareServices.Controllers
     public class CustomersController : Controller
     {
         private readonly CyberCareServicesContext _context;
+        private readonly int PageSize = 20;
 
         public CustomersController(CyberCareServicesContext context)
         {
@@ -17,12 +18,16 @@ namespace CyberCareServices.Controllers
 
         // GET: Customer
         [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var customers = await _context.Customers.ToListAsync();
+            var customers = await _context.Customers
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
             var viewModel = new CustomersViewModel
             {
-                Customers = customers
+                Customers = customers,
+                PageViewModel = new PageViewModel(_context.Customers.Count(), page, PageSize)
             };
             return View(viewModel);
         }

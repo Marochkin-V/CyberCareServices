@@ -1,5 +1,32 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CyberCareServices.Model.Customer
+
 @{
+    ViewData["Title"] = "Customer Details";
 }
+
+<h1>@Model.FullName</h1>
+<hr />
+<div>
+    <h3>Details:</h3>
+    <dl class="row">
+        <dt class="col-sm-2 dt-custom">Address</dt>
+        <dd class="col-sm-10 dd-custom">@Model.Address</dd>
+
+        <dt class="col-sm-2 dt-custom">Phone</dt>
+        <dd class="col-sm-10 dd-custom">@Model.Phone</dd>
+
+        <dt class="col-sm-2 dt-custom">Discount Available</dt>
+        <dd class="col-sm-10 dd-custom">@(Model.DiscountAvailable ? "Yes" : "No")</dd>
+
+        @if (Model.DiscountAvailable)
+        {
+            <dt class="col-sm-2 dt-custom">Discount Amount</dt>
+            <dd class="col-sm-10 dd-custom">@Model.DiscountAmount%</dd>
+        }
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CustomerId" class="page page-primary">Edit</a>
+    <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
+</div>

@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CyberCareServices.Model.Employee
+
 @{
+    ViewData["Title"] = "Edit Employee";
 }
+
+<h2>Edit Employee</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="EmployeeId" />
+    <div class="form-group">
+        <label asp-for="FullName" class="control-label"></label>
+        <input asp-for="FullName" class="form-control textarea-custom" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Position" class="control-label"></label>
+        <input asp-for="Position" class="form-control textarea-custom" />
+        <span asp-validation-for="Position" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfHire" class="control-label"></label>
+        <input asp-for="DateOfHire" class="form-control textarea-custom" type="date" />
+        <span asp-validation-for="DateOfHire" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfBirth" class="control-label"></label>
+        <input asp-for="DateOfBirth" class="form-control textarea-custom" type="date" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" class="form-control textarea-custom" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control textarea-custom" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group btn-center">
+        <input type="submit" value="Save" class="page page-primary save-btn" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
+</div>
+

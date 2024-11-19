@@ -137,18 +137,18 @@ header {
     color: #fdf0d5;
     font-size: 1rem;
     padding: 0.5rem 1rem;
-    transition: color 0.3s, border-bottom 0.3s;
+    border-bottom: 1px solid rgba(253, 240, 213, 0);
+    transition: color 0.2s, border-bottom 0.2s;
 }
 
     .navbar-nav .nav-link:hover {
         color: #f0e68c;
-        border-bottom: 2px solid #fdf0d5;
+        border-bottom-color: rgba(253, 240, 213, 1);
     }
 
-    .navbar-nav .nav-link.active {
-        color: #f0e68c;
-        font-weight: bold;
-        border-bottom: 2px solid #fdf0d5;
+    .navbar-nav .nav-link:active {
+        color: #FEF7E8;
+        border-bottom-color: red;
     }
 
 /* Кнопка для мобильной версии */
@@ -362,3 +362,44 @@ dl.row dd {
     margin: 5px 0;
     padding: 0 10px;
 }
+
+.footer-text {
+    color: rgba(253, 240, 213, 0.5);
+}
+
+/* Стили для кастомного чекбокса */
+.checkbox-custom {
+    position: relative;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #912E36;
+    border: 1px solid #fdf0d5;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+    .checkbox-custom:checked {
+        background-color: #4caf50;
+    }
+
+        .checkbox-custom:checked::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 7px;
+            width: 4px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+    .checkbox-custom:hover {
+        box-shadow: black 0 0 6px;
+    }

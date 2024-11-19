@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CyberCareServices.Model.Customer
+
 @{
+    ViewData["Title"] = "Create Customer";
 }
+
+<h1>Create</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="FullName" class="control-label"></label>
+        <input asp-for="FullName" class="form-control textarea-custom" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control textarea-custom" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" class="form-control textarea-custom" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DiscountAvailable" class="control-label"></label>
+        <input asp-for="DiscountAvailable" type="checkbox" class="checkbox-custom" />
+        <span asp-validation-for="DiscountAvailable" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DiscountAmount" class="control-label"></label>
+        <input asp-for="DiscountAmount" class="form-control textarea-custom" />
+        <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="page page-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
+</div>

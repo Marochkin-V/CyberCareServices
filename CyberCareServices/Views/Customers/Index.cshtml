@@ -3,10 +3,14 @@
 
 @{
     ViewData["Title"] = "Customers Overview";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Customers</h1>
+<div class="table-name">
+    <h1>Customers</h1>
+    <div class="plus-ico">
+        <a asp-action="Create"><i class="bi bi-plus-circle-dotted"></i></a>
+    </div>
+</div>
 
 <table>
     <thead>
@@ -14,9 +18,8 @@
             <th>#</th>
             <th>Full Name</th>
             <th>Address</th>
-            <th width="10%">Phone</th>
-            <th width="10%">Discount Active</th>
-            <th width="10%">Discount %</th>
+            <th width="15%">Phone</th>
+            <th width="10%">Discount</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -28,8 +31,7 @@
                 <td>@customer.FullName</td>
                 <td>@customer.Address</td>
                 <td>@customer.Phone</td>
-                <td>@(customer.DiscountAvailable ? "Yes" : "No")</td>
-                <td>@(customer.DiscountAmount.HasValue ? customer.DiscountAmount.Value.ToString("F2") : "N/A")</td>
+                <td>@(customer.DiscountAvailable ? $"{customer.DiscountAmount}%" : "No Discount")</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@customer.CustomerId" class="btn btn-link cruid-icon">
                         <i class="bi bi-pencil-square edit-i"></i>
@@ -42,6 +44,24 @@
         }
     </tbody>
 </table>
+<div class="pagination-container">
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="page page-outline-dark pagination-btn">
+            <i class="bi bi-arrow-up pgn-arrrows"></i>
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="page page-outline-dark pagination-btn">
+            <i class="bi bi-arrow-down pgn-arrrows"></i>
+        </a>
+    }
+</div>
 
 <div class="add-container">
     <a asp-action="Create" class="page page-primary">Add New Customer</a>

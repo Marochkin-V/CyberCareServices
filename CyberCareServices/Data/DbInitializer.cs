@@ -110,13 +110,14 @@ namespace CyberCareServices.Data
             #region Customer Initialization
             for (int id = 1; id <= cstmQ; id++)
             {
+                var discountAvailable = random.Next(0, 2) == 0;
                 db.Customers.Add(new Customer
                 {
                     FullName = "Name of custoer #" + id.ToString(),
                     Address = "Address of cusstomer #" + id.ToString(),
                     Phone = "+375" + random.Next(100000000, 999999999),
-                    DiscountAvailable = random.Next(0, 2) == 0,
-                    DiscountAmount = random.Next(1, 21),
+                    DiscountAvailable = discountAvailable,
+                    DiscountAmount = discountAvailable ? 0 : random.Next(1, 21),
                 });
             }
             #endregion
