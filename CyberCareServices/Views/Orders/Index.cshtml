@@ -5,20 +5,23 @@
     ViewData["Title"] = "Orders Overview";
 }
 
-<h1>Orders</h1>
+<div class="table-name">
+    <h1>Orders</h1>
+    <div class="plus-ico">
+        <a asp-action="Create"><i class="bi bi-plus-circle-dotted"></i></a>
+    </div>
+</div>
 
 <table>
     <thead>
         <tr>
             <th>#</th>
-            <th width="5%">Received</th>
-            <th width="5%">Completed</th>
+            <th width="9%">Received</th>
+            <th width="9%">Completed</th>
             <th>Customer</th>
-            <th width="5%">Prepayment</th>
             <th width="5%">Payment Status</th>
-            <th width="5%">Completion Status</th>
-            <th width="5%">Total Cost</th>
-            <th width="5%">Warranty (months)</th>
+            <th width="5%">Status</th>
+            <th width="10%">Total Cost</th>
             <th>Employee</th>
             <th>Actions</th>
         </tr>
@@ -31,11 +34,9 @@
                 <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
                 <td>@order.CompletionDate?.ToString("yyyy-MM-dd")</td>
                 <td>@order.CustomerName</td>
-                <td>@order.Prepayment</td>
                 <td>@(order.PaymentStatus ? "Paid" : "Unpaid")</td>
                 <td>@(order.CompletionStatus ? "Completed" : "Pending")</td>
                 <td>@order.TotalCost</td>
-                <td>@order.WarrantyPeriod</td>
                 <td>@order.EmployeeName</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@order.OrderId" class="btn btn-link cruid-icon">
@@ -69,6 +70,6 @@
 </div>
 
 <div class="add-container">
-    <a asp-action="Create" class="page page-primary">Add New Order</a>
+    <a asp-action="Create" class="page page-primary">Add New Order <i class="bi bi-plus-square-dotted"></i></a>
 </div>
 

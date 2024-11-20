@@ -1,5 +1,57 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CyberCareServices.ViewModels.OrderViewModel
+
 @{
+    ViewData["Title"] = "Order Details";
 }
+
+<h1>Order #@Model.OrderId</h1>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Order Date</dt>
+        <dd class="col-sm-10">@Model.OrderDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Completion Date</dt>
+        <dd class="col-sm-10">@Model.CompletionDate?.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Customer Name</dt>
+        <dd class="col-sm-10">@Model.CustomerName</dd>
+
+        <dt class="col-sm-2">Total Cost</dt>
+        <dd class="col-sm-10">@Model.TotalCost.ToString("C")</dd>
+
+        <dt class="col-sm-2">Payment Status</dt>
+        @if(Model.PaymentStatus)
+        {
+            <dd class="col-sm-10"><i class="bi bi-check2"></i></dd>
+        }
+        else
+        {
+            <dd class="col-sm-10"><i class="bi bi-x-lg"></i></dd>
+        }
+
+        <dt class="col-sm-2">Completion Status</dt>
+        @if (Model.CompletionStatus)
+        {
+            <dd class="col-sm-10"><i class="bi bi-check2"></i></dd>
+        }
+        else
+        {
+            <dd class="col-sm-10"><i class="bi bi-x-lg"></i></dd>
+        }
+
+        <dt class="col-sm-2">Prepayment</dt>
+        <dd class="col-sm-10">@Model.Prepayment?.ToString("C")</dd>
+
+        <dt class="col-sm-2"> Warranty Period</dt>
+        <dd class="col-sm-10">@Model.WarrantyPeriod</dd>
+
+        <dt class="col-sm-2">Employee Name</dt>
+        <dd class="col-sm-10">@Model.EmployeeName</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId" class="page page-primary">Edit</a>
+    <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
+</div>

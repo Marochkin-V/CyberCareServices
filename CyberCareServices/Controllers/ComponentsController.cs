@@ -133,8 +133,7 @@ namespace CyberCareServices.Controllers
         {
             var component = await _context.Components
                 .Include(c => c.ComponentType)
-                .Where(c => c.ComponentId == id)
-                .Select(c => new ComponentViewModel
+                .Select(c => new ComponentEditViewModel
                 {
                     ComponentId = c.ComponentId,
                     ComponentType = c.ComponentType.Name,
@@ -147,32 +146,19 @@ namespace CyberCareServices.Controllers
                     Description = c.Description,
                     Price = c.Price
                 })
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(c => c.ComponentId == id);
 
             if (component == null)
             {
                 return NotFound();
             }
 
-            var componentTypes = await _context.ComponentTypes.ToListAsync();
+            component.ComponentTypes = await _context.ComponentTypes.ToListAsync();
 
-            var editModel = new ComponentEditViewModel
-            {
-                ComponentId = component.ComponentId,
-                ComponentType = component.ComponentType,
-                Brand = component.Brand,
-                Manufacturer = component.Manufacturer,
-                CountryOfOrigin = component.CountryOfOrigin,
-                ReleaseDate = component.ReleaseDate,
-                Specifications = component.Specifications,
-                WarrantyPeriod = component.WarrantyPeriod,
-                Description = component.Description,
-                Price = component.Price,
-                ComponentTypes = componentTypes
-            };
-
-            return View(editModel);
+            return View(component);
         }
+
+
 
         // POST: Components/Edit/5
         [HttpPost]

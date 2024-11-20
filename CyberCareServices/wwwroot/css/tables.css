@@ -1,0 +1,79 @@
+﻿/* tables.css */
+
+/* ========== Таблицы ========== */
+table {
+    border: 3px solid black;
+    width: 100%;
+    background-color: #7D060F;
+    margin: 5px 0;
+    box-shadow: black 0 0 10px;
+}
+
+.components-table td {
+    font-size: 12px;
+    padding: 5px 8px;
+}
+
+td, th {
+    font-size: 14px;
+    border: 2px dotted #d9d9d9;
+    padding: 5px 10px;
+}
+
+tr:nth-child(2n) {
+    background: #912E36;
+}
+
+table tr td:first-child {
+    text-align: center;
+    width: 50px;
+    font-weight: bold;
+}
+
+table td:last-child,
+table th:last-child {
+    width: 110px;
+    text-align: center;
+}
+
+th {
+    border-bottom: 4px double;
+    text-align: center;
+}
+
+table tr {
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+}
+
+    table tr:hover {
+        background-color: #003049;
+        transform: scale(1.02);
+    }
+
+        table tr:hover td {
+            border: none;
+        }
+
+.table-name {
+    display: flex;
+    justify-content: center; /* Размещаем элементы по краям */
+    align-items: center; /* Центрируем по вертикали */
+    gap: 10px;
+    margin: 20px 0px 10px 0px;
+}
+
+    .table-name h1 {
+        margin: 0; /* Убираем стандартные отступы */
+    }
+
+dl.row dt {
+    width: 20%; /* Set your desired width */
+    margin: 5px 0;
+    padding: 0 10px;
+}
+
+dl.row dd {
+    width: 80%; /* Set your desired width */
+    margin: 5px 0;
+    padding: 0 10px;
+}

@@ -1,0 +1,153 @@
+﻿/* misc.css */
+
+/* Чекбоксы */
+.checkbox-custom {
+    position: relative;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    appearance: none;
+    background-color: #912E36;
+    border: 1px solid #fdf0d5;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+    .checkbox-custom:checked {
+        background-color: #4caf50;
+    }
+
+        .checkbox-custom:checked::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 7px;
+            width: 4px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+/* Стили для кнопок */
+.page {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fdf0d5;
+    background-color: #7D060F;
+    border: 2px solid #d9d9d9;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    border-radius: 0;
+}
+
+.page-outline-dark {
+    background-color: #912E36;
+    color: #fdf0d5;
+    border: 2px solid #7D060F;
+}
+
+.page-primary {
+    background-color: #7D060F;
+    color: #fdf0d5;
+    border: 2px solid #7D060F;
+}
+
+    .page:hover, .page-outline-dark:hover, .page-primary:hover {
+        background-color: #003049;
+        color: #fdf0d5;
+    }
+
+.cruid-icon {
+    font-size: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 3px;
+    transition: 0.2s;
+    color: #fdf0d5;
+}
+
+    .cruid-icon:hover {
+        transform: scale(1.2);
+    }
+
+.details-i:hover {
+    color: greenyellow;
+}
+
+.edit-i:hover {
+    color: skyblue;
+}
+
+.delete-i {
+    color: #fdf0d5;
+}
+
+    .delete-i:hover {
+        color: red;
+    }
+
+.form-group {
+    margin: 10px 20px;
+}
+
+.textarea-custom:focus {
+    background-color: #fdf0d5;
+    color: #7D060F;
+    font-family: 'Lucida Console';
+    box-shadow: 0 0 8px black;
+    border-color: #7D060F;
+}
+
+.save-btn {
+    width: 70%;
+    margin: 10px;
+}
+
+.btn-center {
+    text-align: center;
+}
+
+.backtolist-btn {
+    text-align: center;
+    position: fixed;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50%;
+    writing-mode: vertical-lr;
+    margin: 0px;
+    transition: all 0.2s;
+    letter-spacing: 8px;
+}
+
+    .backtolist-btn:hover {
+        left: -2px;
+        transform: translateY(-50%);
+        height: 60%;
+    }
+
+.plus-ico {
+    display: flex; /* Добавим flexbox для корректного выравнивания */
+    justify-content: center;
+    align-items: center;
+}
+
+    .plus-ico a {
+        color: #fdf0d5;
+        font-size: 30px;
+        padding: 0px;
+        display: inline-block; /* Убедимся, что иконка занимает нужное место */
+        transition: 0.2s ease;
+    }
+
+        .plus-ico a:hover {
+            color: #912E36;
+        }

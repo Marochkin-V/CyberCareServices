@@ -1,0 +1,28 @@
+﻿/* forms.css */
+
+/* ========== Фокус на элементах форм и кнопках ========== */
+.btn:focus,
+.btn:active:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.form-group {
+    margin: 10px 20px;
+}
+
+.form-control {
+    background-color: #7D060F;
+    color: #fdf0d5;
+    transition: 0.2s ease;
+    border-radius: 0px;
+    border: 1px solid #fdf0d5;
+}
+
+.textarea-custom:focus {
+    background-color: #fdf0d5;
+    color: #7D060F;
+    box-shadow: 0 0 8px black;
+    border-color: #7D060F;
+}

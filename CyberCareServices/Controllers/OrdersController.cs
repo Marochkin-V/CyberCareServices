@@ -2,6 +2,7 @@
 using CyberCareServices.Model;
 using CyberCareServices.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberCareServices.Controllers
@@ -80,51 +81,109 @@ namespace CyberCareServices.Controllers
         }
 
         // GET: OrdersController/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["Customers"] = _context.Customers.ToList();
-            ViewData["Employees"] = _context.Employees.ToList();
-            return View();
-        }
-
-        // POST: OrdersController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            ViewData["Customers"] = _context.Customers.ToList();
-            ViewData["Employees"] = _context.Employees.ToList();
-            return View(order);
-        }
-
-        // GET: OrdersController/Edit/5
-        public async Task<IActionResult> Edit(int id)
-        {
-            var order = await _context.Orders.FindAsync(id);
+            var order = new OrderEditViewModel();
 
             if (order == null)
             {
                 return NotFound();
             }
 
-            ViewData["Customers"] = _context.Customers.ToList();
-            ViewData["Employees"] = _context.Employees.ToList();
+            order.Customers = await _context.Customers.ToListAsync();
+            order.Employees = await _context.Employees.ToListAsync();
+
+
             return View(order);
         }
 
-        // POST: OrdersController/Edit/5
+        // POST: OrdersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Order order)
+        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,CompletionDate,CustomerName,EmployeeName,Prepayment,PaymentStatus,CompletionStatus,TotalCost,WarrantyPeriod")] OrderViewModel model)
         {
-            if (id != order.OrderId)
+            if (ModelState.IsValid)
+            {
+                var customer = await _context.Customers
+                    .FirstOrDefaultAsync(ct => ct.FullName == model.CustomerName);
+
+                if (customer == null)
+                {
+                    ModelState.AddModelError("Customer name", "Неверное имя клиента.");
+                    return View(model);
+                }
+
+                var employee = await _context.Employees
+                    .FirstOrDefaultAsync(ct => ct.FullName == model.EmployeeName);
+
+                if (customer == null)
+                {
+                    ModelState.AddModelError("Employee name", "Неверное имя сотрудника.");
+                    return View(model);
+                }
+
+                var order = new Order
+                {
+                    OrderId = model.OrderId,
+                    OrderDate = model.OrderDate,
+                    CompletionDate = model.CompletionDate,
+                    CustomerId = customer.CustomerId,
+                    EmployeeId = employee.EmployeeId,
+                    Prepayment = model.Prepayment,
+                    PaymentStatus = model.PaymentStatus,
+                    CompletionStatus = model.CompletionStatus,
+                    TotalCost = model.TotalCost,
+                    WarrantyPeriod = model.WarrantyPeriod,
+                };
+
+                _context.Add(order);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
+
+        // GET: OrdersController/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.Employee)
+                .Select(o => new OrderEditViewModel
+                {
+                    OrderId = o.OrderId,
+                    OrderDate = o.OrderDate,
+                    CompletionDate = o.CompletionDate,
+                    CustomerName = o.Customer.FullName,
+                    EmployeeName = o.Employee.FullName,
+                    Prepayment = o.Prepayment,
+                    PaymentStatus = o.PaymentStatus,
+                    CompletionStatus = o.CompletionStatus,
+                    TotalCost = o.TotalCost,
+                    WarrantyPeriod = o.WarrantyPeriod,
+                })
+                .FirstOrDefaultAsync(o => o.OrderId == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            order.Customers = await _context.Customers.ToListAsync();
+            order.Employees = await _context.Employees.ToListAsync();
+
+
+            return View(order);
+        }
+
+
+        // POST: Orders/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,CompletionDate,CustomerName,EmployeeName,Prepayment,PaymentStatus,CompletionStatus,TotalCost,WarrantyPeriod")] OrderViewModel model)
+        {
+            if (id != model.OrderId)
             {
                 return NotFound();
             }
@@ -133,12 +192,49 @@ namespace CyberCareServices.Controllers
             {
                 try
                 {
+                    var order = await _context.Orders
+                        .Include(o => o.Customer)
+                        .Include(o => o.Employee)
+                        .FirstOrDefaultAsync(o => o.OrderId == id);
+
+                    if (order == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var customer = await _context.Customers
+                        .FirstOrDefaultAsync(c => c.FullName == model.CustomerName);
+                    if (customer == null)
+                    {
+                        ModelState.AddModelError("CustomerName", "Invalid customer name.");
+                        return View(model);
+                    }
+
+                    var employee = await _context.Employees
+                        .FirstOrDefaultAsync(e => e.FullName == model.EmployeeName);
+                    if (employee == null)
+                    {
+                        ModelState.AddModelError("EmployeeName", "Invalid employee name.");
+                        return View(model);
+                    }
+
+                    // Update the order properties
+                    order.OrderDate = model.OrderDate;
+                    order.CompletionDate = model.CompletionDate;
+                    order.CustomerId = customer.CustomerId;
+                    order.EmployeeId = employee.EmployeeId;
+                    order.Prepayment = model.Prepayment;
+                    order.PaymentStatus = model.PaymentStatus;
+                    order.CompletionStatus = model.CompletionStatus;
+                    order.TotalCost = model.TotalCost;
+                    order.WarrantyPeriod = model.WarrantyPeriod;
+
                     _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Orders.Any(e => e.OrderId == order.OrderId))
+                    if (!_context.Orders.Any(o => o.OrderId == model.OrderId))
                     {
                         return NotFound();
                     }
@@ -151,10 +247,10 @@ namespace CyberCareServices.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Customers"] = _context.Customers.ToList();
-            ViewData["Employees"] = _context.Employees.ToList();
-            return View(order);
+            return View(model);
         }
+
+
 
         // GET: OrdersController/Delete/5
         public async Task<IActionResult> Delete(int id)
