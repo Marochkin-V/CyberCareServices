@@ -27,3 +27,23 @@
     border-color: #7D060F;
 }
 
+.d23 {
+    height: 20px;
+    width: 300px; /* Сделали шире */
+    margin: 0 auto; /* Выровняли по центру */
+    background: #7D060F; /* Цвет изменён на красный */
+    position: relative;
+}
+
+    .d23:before {
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        left: 0;
+        top: 20px; /* Смещаем треугольник вниз */
+        border-top: 20px solid #7D060F; /* Цвет изменён на красный */
+        border-left: 150px solid transparent; /* Сделали шире */
+        border-right: 150px solid transparent; /* Сделали шире */
+        z-index: -1;
+    }

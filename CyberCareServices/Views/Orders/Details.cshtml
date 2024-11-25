@@ -89,6 +89,12 @@
     </tbody>
 </table>
 
+<figure class="d23">
+    <div class="plus-ico">
+        <a href="@Url.Action("AddComponent", "Orders", new { orderId = Model.OrderId })"><i class="bi bi-plus-circle-dotted"></i></a>
+    </div>
+</figure>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.OrderId" class="page page-primary">Edit</a>
     <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>

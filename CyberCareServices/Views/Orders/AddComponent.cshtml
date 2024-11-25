@@ -1,0 +1,18 @@
+﻿@model CyberCareServices.ViewModels.AddComponentViewModel
+
+@{
+    ViewData["Title"] = "Add Component to Order";
+}
+
+<h1>Add Component to Order #@Model.OrderId</h1>
+
+<form asp-action="AddComponent" method="post">
+    <input type="hidden" asp-for="OrderId" />
+
+    <div class="form-group">
+        <label asp-for="ComponentId">Select Component</label>
+        <select asp-for="ComponentId" asp-items="Model.AvailableComponents" class="form-control textarea-custom"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Component</button>
+</form>

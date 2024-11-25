@@ -125,6 +125,58 @@ namespace CyberCareServices.Controllers
             return RedirectToAction(nameof(Details), new { id = orderid });
         }
 
+        // GET: OrdersController/AddComponent/5
+        public async Task<IActionResult> AddComponent(int orderId)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Components)
+                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var availableComponents = await _context.Components.ToListAsync();
+
+            var viewModel = new AddComponentViewModel
+            {
+                OrderId = orderId,
+                AvailableComponents = new SelectList(availableComponents, "ComponentId", "Specifications")
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: OrdersController/AddComponent
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddComponent([Bind("OrderId, ComponentId")] AddComponentViewModel model)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Components)
+                .FirstOrDefaultAsync(o => o.OrderId == model.OrderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var component = await _context.Components
+                .FirstOrDefaultAsync(c => c.ComponentId == model.ComponentId);
+
+            if (component == null)
+            {
+                ModelState.AddModelError("ComponentId", "Invalid component.");
+                return View(model);
+            }
+
+            order.Components.Add(component);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = model.OrderId });
+        }
+
 
         // GET: OrdersController/Create
         public async Task<IActionResult> Create()
