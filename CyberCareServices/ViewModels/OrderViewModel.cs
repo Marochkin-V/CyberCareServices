@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CyberCareServices.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace CyberCareServices.ViewModels
 {
@@ -37,5 +38,7 @@ namespace CyberCareServices.ViewModels
 
         [Display(Name = "Employee")]
         public string? EmployeeName { get; set; }
+
+        public List<ComponentViewModel> Components { get; set; }
     }
 }

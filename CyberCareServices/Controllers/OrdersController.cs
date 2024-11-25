@@ -56,11 +56,17 @@ namespace CyberCareServices.Controllers
             var order = await _context.Orders
                 .Include(o => o.Customer)
                 .Include(o => o.Employee)
+                .Include(o => o.Components)
                 .FirstOrDefaultAsync(o => o.OrderId == id);
 
             if (order == null)
             {
                 return NotFound();
+            }
+
+            foreach (var component in order.Components)
+            {
+                component.ComponentType = _context.ComponentTypes.FirstOrDefault(ct => ct.ComponentTypeId == component.ComponentTypeId);
             }
 
             var viewModel = new OrderViewModel
@@ -75,6 +81,20 @@ namespace CyberCareServices.Controllers
                 TotalCost = order.TotalCost,
                 WarrantyPeriod = order.WarrantyPeriod,
                 EmployeeName = order.Employee.FullName,
+                Components = order.Components
+                .Select(c => new ComponentViewModel
+                {
+                    ComponentId = c.ComponentId,
+                    ComponentType = c.ComponentType.Name,
+                    Brand = c.Brand,
+                    Manufacturer = c.Manufacturer,
+                    CountryOfOrigin = c.CountryOfOrigin,
+                    ReleaseDate = c.ReleaseDate,
+                    Specifications = c.Specifications,
+                    WarrantyPeriod = c.WarrantyPeriod,
+                    Description = c.Description,
+                    Price = c.Price
+                }).ToList(),
             };
 
             return View(viewModel);

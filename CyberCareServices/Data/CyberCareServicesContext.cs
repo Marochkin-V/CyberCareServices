@@ -22,5 +22,6 @@ namespace CyberCareServices.Data
         public virtual DbSet<Order> Orders { get; set; }
 
         public virtual DbSet<Service> Services { get; set; }
+
     }
 }
