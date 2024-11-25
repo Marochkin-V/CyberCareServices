@@ -51,6 +51,8 @@
     </dl>
 </div>
 
+<hr />
+
 <table class="components-table">
     <thead>
         <tr>
@@ -133,7 +135,11 @@
     </div>
 </figure>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.OrderId" class="page page-primary">Edit</a>
+
+<hr class="line-separator" />
+
+
+<div class="btn-center">
+    <a asp-action="Edit" asp-route-id="@Model.OrderId" class="page page-primary save-btn">Edit</a>
     <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
 </div>
