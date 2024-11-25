@@ -80,10 +80,7 @@
                 <td>@component.WarrantyPeriod</td>
                 <td>@component.Price.ToString("C2")</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@component.ComponentId" class="btn btn-link cruid-icon">
-                        <i class="bi bi-pencil-square edit-i"></i>
-                    </a>
-                    <a asp-action="Delete" asp-route-id="@component.ComponentId" class="btn btn-link text-danger cruid-icon">
+                    <a asp-action="DeleteComponent" asp-route-orderid="@Model.OrderId" asp-route-componentid="@component.ComponentId" class="btn btn-link text-danger cruid-icon">
                         <i class="bi bi-trash delete-i"></i>
                     </a>
                 </td>

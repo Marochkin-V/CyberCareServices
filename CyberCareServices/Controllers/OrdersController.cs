@@ -4,6 +4,7 @@ using CyberCareServices.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace CyberCareServices.Controllers
 {
@@ -99,6 +100,31 @@ namespace CyberCareServices.Controllers
 
             return View(viewModel);
         }
+
+        public async Task<IActionResult> DeleteComponent(int orderid, int componentid)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Components)
+                .FirstOrDefaultAsync(o => o.OrderId == orderid);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var componentToRemove = order.Components.FirstOrDefault(c => c.ComponentId == componentid);
+
+            if (componentToRemove == null)
+            {
+                return NotFound();
+            }
+
+            order.Components.Remove(componentToRemove);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = orderid });
+        }
+
 
         // GET: OrdersController/Create
         public async Task<IActionResult> Create()
