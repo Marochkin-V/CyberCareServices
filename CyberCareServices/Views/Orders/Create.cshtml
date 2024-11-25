@@ -7,6 +7,8 @@
 <h1>Create Order</h1>
 
 <form asp-action="Create">
+    <input type="hidden" asp-for="Customers" />
+    <input type="hidden" asp-for="Employees" />
     <div class="form-group">
         <label asp-for="CustomerName" class="control-label"></label>
         <select asp-for="CustomerName" class="form-control textarea-custom" asp-items="@(new SelectList(Model.Customers, "FullName", "FullName"))"></select>

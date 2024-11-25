@@ -277,7 +277,7 @@ namespace CyberCareServices.Controllers
         // POST: OrdersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,CompletionDate,CustomerName,EmployeeName,Prepayment,PaymentStatus,CompletionStatus,TotalCost,WarrantyPeriod")] OrderViewModel model)
+        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,CompletionDate,CustomerName,EmployeeName,Prepayment,PaymentStatus,CompletionStatus,TotalCost,WarrantyPeriod,Customers,Employees")] OrderEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -366,7 +366,6 @@ namespace CyberCareServices.Controllers
 
             order.Customers = await _context.Customers.ToListAsync();
             order.Employees = await _context.Employees.ToListAsync();
-
 
             return View(order);
         }
