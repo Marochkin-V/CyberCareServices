@@ -256,10 +256,11 @@ namespace CyberCareServices.Data
                                                     1),
                     Specifications = "Specifications for component #" + id.ToString(),
                     WarrantyPeriod = random.Next(1, 5),
-                    Description = "Description for component #" + id.ToString(),
+                    Description = "",
                     Price = random.Next(100, 5000),
                     ComponentType = db.ComponentTypes.FirstOrDefault(ct => ct.ComponentTypeId == ctID),
                 };
+                component.Description = component.ComponentType.Name.ToString() + " " + component.Brand.ToString() + " " + component.Specifications.ToString();
                 db.Components.Add(component);
 
                 db.ComponentTypes.FirstOrDefault(ct => ct.ComponentTypeId == ctID).Components.Add(component);

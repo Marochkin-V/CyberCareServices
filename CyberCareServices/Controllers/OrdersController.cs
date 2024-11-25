@@ -142,7 +142,7 @@ namespace CyberCareServices.Controllers
             var viewModel = new AddComponentViewModel
             {
                 OrderId = orderId,
-                AvailableComponents = new SelectList(availableComponents, "ComponentId", "Specifications")
+                AvailableComponents = new SelectList(availableComponents, "ComponentId", "Description")
             };
 
             return View(viewModel);
