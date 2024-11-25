@@ -40,5 +40,6 @@ namespace CyberCareServices.ViewModels
         public string? EmployeeName { get; set; }
 
         public List<ComponentViewModel> Components { get; set; }
+        public List<Service> Services { get; set; }
     }
 }

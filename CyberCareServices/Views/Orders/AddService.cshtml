@@ -1,0 +1,20 @@
+﻿@model CyberCareServices.ViewModels.AddServiceViewModel
+
+@{
+    ViewData["Title"] = "Add Service to Order";
+}
+
+<h1>Add Service to Order #@Model.OrderId</h1>
+
+<form asp-action="AddService" method="post">
+    <input type="hidden" asp-for="OrderId" />
+
+    <div class="form-group">
+        <label asp-for="ServiceId">Select Service</label>
+        <select asp-for="ServiceId" asp-items="Model.AvailableServices" class="form-control textarea-custom"></select>
+    </div>
+
+    <div class="form-group btn-center">
+        <button type="submit" class="page page-primary save-btn">Add Service</button>
+    </div>
+</form>

@@ -58,6 +58,7 @@ namespace CyberCareServices.Controllers
                 .Include(o => o.Customer)
                 .Include(o => o.Employee)
                 .Include(o => o.Components)
+                .Include(o => o.Services)
                 .FirstOrDefaultAsync(o => o.OrderId == id);
 
             if (order == null)
@@ -96,6 +97,7 @@ namespace CyberCareServices.Controllers
                     Description = c.Description,
                     Price = c.Price
                 }).ToList(),
+                Services = order.Services.ToList(),
             };
 
             return View(viewModel);
@@ -124,6 +126,31 @@ namespace CyberCareServices.Controllers
 
             return RedirectToAction(nameof(Details), new { id = orderid });
         }
+
+        public async Task<IActionResult> DeleteService(int orderid, int serviceid)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Services)
+                .FirstOrDefaultAsync(o => o.OrderId == orderid);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var serviceToRemove = order.Services.FirstOrDefault(s => s.ServiceId == serviceid);
+
+            if (serviceToRemove == null)
+            {
+                return NotFound();
+            }
+
+            order.Services.Remove(serviceToRemove);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = orderid });
+        }
+
 
         // GET: OrdersController/AddComponent/5
         public async Task<IActionResult> AddComponent(int orderId)
@@ -172,6 +199,58 @@ namespace CyberCareServices.Controllers
             }
 
             order.Components.Add(component);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = model.OrderId });
+        }
+
+        // GET: OrdersController/AddService/5
+        public async Task<IActionResult> AddService(int orderId)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Services)
+                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var availableServices = await _context.Services.ToListAsync();
+
+            var viewModel = new AddServiceViewModel
+            {
+                OrderId = orderId,
+                AvailableServices = new SelectList(availableServices, "ServiceId", "Name")
+            };
+
+            return View(viewModel);
+        }
+
+        // POST: OrdersController/AddService
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddService([Bind("OrderId, ServiceId")] AddServiceViewModel model)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Services)
+                .FirstOrDefaultAsync(o => o.OrderId == model.OrderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var service = await _context.Services
+                .FirstOrDefaultAsync(s => s.ServiceId == model.ServiceId);
+
+            if (service == null)
+            {
+                ModelState.AddModelError("ServiceId", "Invalid service.");
+                return View(model);
+            }
+
+            order.Services.Add(service);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Details), new { id = model.OrderId });
@@ -248,6 +327,8 @@ namespace CyberCareServices.Controllers
             var order = await _context.Orders
                 .Include(o => o.Customer)
                 .Include(o => o.Employee)
+                .Include(o => o.Components)
+                .Include(o => o.Services)
                 .Select(o => new OrderEditViewModel
                 {
                     OrderId = o.OrderId,
@@ -260,6 +341,21 @@ namespace CyberCareServices.Controllers
                     CompletionStatus = o.CompletionStatus,
                     TotalCost = o.TotalCost,
                     WarrantyPeriod = o.WarrantyPeriod,
+                    Components = o.Components
+                    .Select(c => new ComponentViewModel
+                    {
+                        ComponentId = c.ComponentId,
+                        ComponentType = c.ComponentType.Name,
+                        Brand = c.Brand,
+                        Manufacturer = c.Manufacturer,
+                        CountryOfOrigin = c.CountryOfOrigin,
+                        ReleaseDate = c.ReleaseDate,
+                        Specifications = c.Specifications,
+                        WarrantyPeriod = c.WarrantyPeriod,
+                        Description = c.Description,
+                        Price = c.Price
+                    }).ToList(),
+                    Services = o.Services.ToList(),
                 })
                 .FirstOrDefaultAsync(o => o.OrderId == id);
 
@@ -279,7 +375,7 @@ namespace CyberCareServices.Controllers
         // POST: Orders/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,CompletionDate,CustomerName,EmployeeName,Prepayment,PaymentStatus,CompletionStatus,TotalCost,WarrantyPeriod")] OrderViewModel model)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,CompletionDate,CustomerName,EmployeeName,Prepayment,PaymentStatus,CompletionStatus,TotalCost,WarrantyPeriod,Components,Services")] OrderViewModel model)
         {
             if (id != model.OrderId)
             {
