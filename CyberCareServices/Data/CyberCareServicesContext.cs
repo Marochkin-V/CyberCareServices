@@ -1,10 +1,11 @@
-﻿using CyberCareServices.Model;
+﻿using CyberCareServices.Areas.Identity.Models;
+using CyberCareServices.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberCareServices.Data
 {
-    public class CyberCareServicesContext : DbContext
+    public class CyberCareServicesContext : IdentityDbContext<ApplicationUser>
     {
         public CyberCareServicesContext(DbContextOptions<CyberCareServicesContext> options)
             : base(options)
