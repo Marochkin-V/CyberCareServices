@@ -5,9 +5,11 @@ using CyberCareServices.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 using CyberCareServices.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CyberCareServices.Controllers
 {
+    [Authorize]
     public class ComponentsController : Controller
     {
         private readonly CyberCareServicesContext _context;

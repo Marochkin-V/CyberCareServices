@@ -3,9 +3,11 @@ using CyberCareServices.Model;
 using CyberCareServices.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using CyberCareServices.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CyberCareServices.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly CyberCareServicesContext _context;

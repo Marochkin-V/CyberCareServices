@@ -1,12 +1,14 @@
 ﻿using CyberCareServices.Data;
 using CyberCareServices.Model;
 using CyberCareServices.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberCareServices.Controllers
 {
+    [Authorize]
     public class ComponentTypesController : Controller
     {
         private readonly CyberCareServicesContext _context;

@@ -26,18 +26,22 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Ссылки навигации -->
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="ComponentTypes" asp-action="Index">ComponentTypes</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Components" asp-action="Index">Components</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Services" asp-action="Index">Services</a></li>
-                    </ul>
-                    <!-- Частичная секция для входа -->
-                    <partial name="_LoginPartial" />
-                </div>
+                    <div class="collapse navbar-collapse" id="navbarContent">
+
+                        <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="ComponentTypes" asp-action="Index">ComponentTypes</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Components" asp-action="Index">Components</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Services" asp-action="Index">Services</a></li>
+                        }
+                        </ul>
+                        <!-- Частичная секция для входа -->
+                        <partial name="_LoginPartial" />
+                    </div>
             </div>
         </nav>
     </header>

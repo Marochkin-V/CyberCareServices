@@ -49,3 +49,12 @@ h3 {
     margin: 25px 0 10px 25px;
     text-shadow: 2px 2px 2px black;
 }
+
+a {
+    color: #fdf0d5;
+}
+
+    a :hover {
+        color: #fdf0d5;
+        box-shadow: black, 2px 2px inset;
+    }

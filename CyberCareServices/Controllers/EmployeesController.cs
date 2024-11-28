@@ -6,9 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using CyberCareServices.Model;
 using CyberCareServices.ViewModels;
 using CyberCareServices.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CyberCareServices.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly CyberCareServicesContext _context;
