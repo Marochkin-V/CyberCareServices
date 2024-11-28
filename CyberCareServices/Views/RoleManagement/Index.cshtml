@@ -1,0 +1,63 @@
+﻿@model CyberCareServices.ViewModels.RoleManagementViewModel
+
+@{
+    ViewData["Title"] = "Role Management";
+}
+
+<h1>Role Management</h1>
+
+<table class="roles-table">
+    <thead>
+        <tr>
+            <th width="30%">User</th>
+            <th width="30%">Roles</th>
+            <th width="40%">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var userRole in Model.UserRoles)
+        {
+            <tr>
+                <td>@userRole.UserName</td>
+                <td>
+                    @foreach (var role in userRole.Roles)
+                    {
+                        <span>@role</span>
+                        <br />
+                    }
+                </td>
+                <td>
+                    @foreach (var role in Model.Roles)
+                    {
+                        <div>
+                            @if (userRole.Roles.Contains(role.Name))
+                            {
+                                <!-- Кнопка для удаления роли -->
+                                <form method="post" asp-action="RemoveRole">
+                                    <input type="hidden" name="userId" value="@userRole.UserId" />
+                                    <input type="hidden" name="roleName" value="@role.Name" />
+                                    <button type="submit" class="role-btn take-over">
+                                        Take over "@role.Name"
+                                    </button>
+                                </form>
+
+                            }
+                            else
+                            {
+                                <!-- Кнопка для добавления роли -->
+                                <form method="post" asp-action="AddRole">
+                                    <input type="hidden" name="userId" value="@userRole.UserId" />
+                                    <input type="hidden" name="roleName" value="@role.Name" />
+                                    <button type="submit" class="role-btn make">
+                                        Make "@role.Name"
+                                    </button>
+                                </form>
+
+                            }
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

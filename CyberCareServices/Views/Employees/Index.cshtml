@@ -7,9 +7,12 @@
 
 <div class="table-name">
     <h1>Employees</h1>
-    <div class="plus-ico">
-        <a asp-action="Create"><i class="bi bi-plus-circle-dotted"></i></a>
-    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="plus-ico">
+            <a asp-action="Create"><i class="bi bi-plus-circle-dotted"></i></a>
+        </div>
+    }
 </div>
 
 <table>
@@ -20,7 +23,10 @@
             <th>Position</th>
             <th width="10%">Phone</th>
             <th width="22%">Email</th>
-            <th>Actions</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -32,14 +38,17 @@
                 <td>@employee.Position</td>
                 <td>@employee.Phone</td>
                 <td>@employee.Email</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-link cruid-icon">
-                        <i class="bi bi-pencil-square edit-i"></i>
-                    </a>
-                    <a asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-link text-danger cruid-icon">
-                        <i class="bi bi-trash delete-i"></i>
-                    </a>
-                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-link cruid-icon">
+                            <i class="bi bi-pencil-square edit-i"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-link text-danger cruid-icon">
+                            <i class="bi bi-trash delete-i"></i>
+                        </a>
+                    </td>
+                }
             </tr>
         }
     </tbody>

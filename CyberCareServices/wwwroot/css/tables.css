@@ -10,7 +10,7 @@ table {
 }
 
 .components-table td {
-    font-size: 12px;
+    font-size: 14px;
     padding: 5px 8px;
 }
 
@@ -42,12 +42,11 @@ th {
 }
 
 table tr {
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+    transition: background-color 0.2s ease-in-out;
 }
 
     table tr:hover {
         background-color: #003049;
-        transform: scale(1.02);
     }
 
         table tr:hover td {

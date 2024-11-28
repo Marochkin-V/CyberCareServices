@@ -27,6 +27,9 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.EmployeeId" class="page page-primary">Edit</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.EmployeeId" class="page page-primary">Edit</a>
+    }
     <a asp-action="Index" class="page page-primary backtolist-btn"><i class="bi bi-arrow-left"></i>  Back to List  <i class="bi bi-arrow-left"></i></a>
 </div>

@@ -110,6 +110,67 @@
     margin: 10px;
 }
 
+.role-btn {
+    background: transparent;
+    width: 70%;
+    margin: 10px;
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 5px;
+    color: #fdf0d5;
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0;
+    position: relative; /* Для позиционирования стрелок */
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+    .role-btn::before,
+    .role-btn::after {
+        content: "<-";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%); /* Выравнивание стрелок по вертикали */
+        opacity: 0; /* Стрелки скрыты по умолчанию */
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .role-btn::before {
+        left: -15px; /* Стрелка слева */
+        transform: translateY(-50%) rotate(180deg); /* Стрелка слева сразу повернута */
+    }
+
+    .role-btn::after {
+        right: -15px; /* Стрелка справа */
+    }
+
+    .role-btn:hover {
+        transform: scale(1.05);
+    }
+
+        .role-btn:hover::before,
+        .role-btn:hover::after {
+            opacity: 1; /* Стрелки становятся видимыми при наведении */
+        }
+
+        .role-btn:hover::before {
+            /* Стрелка слева не поворачивается */
+        }
+
+        .role-btn:hover::after {
+            transform: translateY(-50%) rotate(0deg); /* Стрелка справа поворачивается на 0 градусов */
+        }
+
+.take-over:hover {
+    color: red;
+}
+.make:hover{
+    color: lawngreen;
+}
+
 .btn-center {
     text-align: center;
 }
