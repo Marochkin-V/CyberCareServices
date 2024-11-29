@@ -12,6 +12,24 @@
     </div>
 </div>
 
+<div class="search-container">
+    <div class="search-form-custom">
+        <form method="get">
+            <div class="input-wrapper">
+                <input class="form-control textarea-custom" type="text" name="searchQuery" placeholder="Search in description" value="@Model.SearchQuery" />
+                <div class="search-icon">
+                    <i class="bi bi-search"></i>
+                </div>
+            </div>
+            <input type="hidden" name="sortField" value="@Model.SortField" />
+            <input type="hidden" name="sortOrder" value="@Model.SortOrder" />
+        </form>
+    </div>
+</div>
+
+
+
+
 <table class="components-table">
     <thead>
         <tr>

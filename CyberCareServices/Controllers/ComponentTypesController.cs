@@ -20,24 +20,53 @@ namespace CyberCareServices.Controllers
 
         // GET: ComponentTypes
         [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortField, string sortOrder)
         {
-            var componentTypes = await _context.ComponentTypes
+            sortField = string.IsNullOrEmpty(sortField) ? "ComponentTypeId" : sortField;
+            sortOrder = string.IsNullOrEmpty(sortOrder) ? "asc" : sortOrder;
+
+            var componentTypesQuery = _context.ComponentTypes
                 .Select(ct => new ComponentType
                 {
                     ComponentTypeId = ct.ComponentTypeId,
                     Name = ct.Name,
                     Description = ct.Description
-                })
-                .ToListAsync();
+                });
+
+            // Сортировка по выбранному полю и направлению
+            if (sortOrder == "desc")
+            {
+                componentTypesQuery = sortField switch
+                {
+                    "ComponentTypeId" => componentTypesQuery.OrderByDescending(ct => ct.ComponentTypeId),
+                    "Name" => componentTypesQuery.OrderByDescending(ct => ct.Name),
+                    "Description" => componentTypesQuery.OrderByDescending(ct => ct.Description),
+                    _ => componentTypesQuery.OrderByDescending(ct => ct.ComponentTypeId),
+                };
+            }
+            else
+            {
+                componentTypesQuery = sortField switch
+                {
+                    "ComponentTypeId" => componentTypesQuery.OrderBy(ct => ct.ComponentTypeId),
+                    "Name" => componentTypesQuery.OrderBy(ct => ct.Name),
+                    "Description" => componentTypesQuery.OrderBy(ct => ct.Description),
+                    _ => componentTypesQuery.OrderBy(ct => ct.ComponentTypeId),
+                };
+            }
+
+            var componentTypes = await componentTypesQuery.ToListAsync();
 
             var viewModel = new ComponentTypesViewModel
             {
-                ComponentTypes = componentTypes
+                ComponentTypes = componentTypes,
+                SortField = sortField,
+                SortOrder = sortOrder
             };
 
             return View(viewModel);
         }
+
 
         // GET: ComponentTypes/Details/5
         public async Task<IActionResult> Details(int id)

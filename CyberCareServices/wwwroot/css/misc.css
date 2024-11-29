@@ -212,3 +212,72 @@
         .plus-ico a:hover {
             color: #912E36;
         }
+
+/* Контейнер формы */
+.search-container {
+    position: absolute;
+    top: 130px; /* Вертикальное выравнивание */
+    left: -210px; /* Начальная позиция формы (скрыта) */
+    transition: left 0.3s ease; /* Плавное выдвижение */
+}
+
+/* Контейнер формы и иконки */
+.search-form-custom {
+    width: 250px; /* Ширина поля ввода */
+    position: relative; /* Для правильного позиционирования вложенных элементов */
+}
+
+/* Обёртка для текстового поля и иконки */
+.input-wrapper {
+    position: relative;
+}
+
+/* Стиль для поля ввода */
+.search-form-custom .form-control {
+    width: 100%; /* Заполняет весь контейнер */
+    padding-right: 40px; /* Оставляем место для иконки справа */
+}
+
+/* Стиль для иконки лупы */
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Положение иконки справа */
+    transform: translateY(-50%); /* Вертикальное выравнивание */
+    pointer-events: none; /* Иконка не мешает взаимодействию с полем ввода */
+}
+
+    /* Иконка */
+    .search-icon i {
+        font-size: 22px; /* Размер иконки */
+    }
+
+/* Выезжающая форма */
+.search-container:hover,
+.search-container:focus-within {
+    left: 5px; /* При наведении или фокусе форма выезжает на экран */
+}
+
+    /* Когда форма открыта, иконка скрыта */
+    .search-container:hover .search-icon,
+    .search-form-custom:focus-within .search-icon {
+        opacity: 0; /* Скрываем иконку при фокусе или наведении */
+        transition: opacity 0.3s ease;
+    }
+
+/* Когда форма не активна */
+.search-container:not(:hover) .search-icon {
+    opacity: 1; /* Иконка видна, когда форма не активна */
+}
+
+/* Форма остаётся видимой при фокусе */
+.search-form-custom:focus-within {
+    left: 5px; /* При фокусе форма остаётся на экране */
+}
+
+    /* Скрытие иконки, когда форма активна */
+    .search-form-custom:focus-within .search-icon {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+

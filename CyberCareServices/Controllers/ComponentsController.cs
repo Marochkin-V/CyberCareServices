@@ -22,12 +22,13 @@ namespace CyberCareServices.Controllers
 
         // GET: Components
         [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<IActionResult> Index(string sortField, string sortOrder, int page = 1)
+        public async Task<IActionResult> Index(string sortField, string sortOrder, string searchQuery, int page = 1)
         {
-            // Определяем, по какому полю будет происходить сортировка
+            // Устанавливаем значения по умолчанию для сортировки
             sortField = string.IsNullOrEmpty(sortField) ? "ComponentId" : sortField;
             sortOrder = string.IsNullOrEmpty(sortOrder) ? "asc" : sortOrder;
 
+            // Начальная выборка компонентов
             var componentsQuery = _context.Components
                 .Include(c => c.ComponentType)
                 .Select(c => new ComponentViewModel
@@ -43,6 +44,12 @@ namespace CyberCareServices.Controllers
                     Description = c.Description,
                     Price = c.Price
                 });
+
+            // Если задан поисковый запрос, фильтруем по спецификации
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                componentsQuery = componentsQuery.Where(c => c.Description.Contains(searchQuery));
+            }
 
             // Сортировка по выбранному полю и направлению
             if (sortOrder == "desc")
@@ -76,6 +83,7 @@ namespace CyberCareServices.Controllers
                 };
             }
 
+            // Пагинация
             var components = await componentsQuery
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
@@ -86,7 +94,8 @@ namespace CyberCareServices.Controllers
                 Components = components,
                 PageViewModel = new PageViewModel(_context.Components.Count(), page, PageSize),
                 SortField = sortField,
-                SortOrder = sortOrder
+                SortOrder = sortOrder,
+                SearchQuery = searchQuery // Добавляем поисковый запрос в модель
             };
 
             return View(componentsvm);

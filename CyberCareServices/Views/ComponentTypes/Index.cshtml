@@ -15,9 +15,15 @@
 <table>
     <thead>
         <tr>
-            <th>#</th>
-            <th width="20%">Type Name</th>
-            <th>Description</th>
+            <th>
+                @Html.ActionLink("#", "Index", new { sortField = "ComponentTypeId", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })
+            </th>
+            <th width="20%">
+                @Html.ActionLink("Type Name", "Index", new { sortField = "Name", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })
+            </th>
+            <th>
+                @Html.ActionLink("Description", "Index", new { sortField = "Description", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })
+            </th>
             <th width="10%">Actions</th>
         </tr>
     </thead>

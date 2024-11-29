@@ -6,4 +6,5 @@ public class ComponentsViewModel
     public PageViewModel PageViewModel { get; set; }
     public string SortField { get; set; }
     public string SortOrder { get; set; }
+    public string SearchQuery { get; set; }
 }
