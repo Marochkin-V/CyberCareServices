@@ -22,11 +22,13 @@ namespace CyberCareServices.Controllers
 
         // GET: Components
         [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string sortField, string sortOrder, int page = 1)
         {
-            var components = await _context.Components
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize)
+            // Определяем, по какому полю будет происходить сортировка
+            sortField = string.IsNullOrEmpty(sortField) ? "ComponentId" : sortField;
+            sortOrder = string.IsNullOrEmpty(sortOrder) ? "asc" : sortOrder;
+
+            var componentsQuery = _context.Components
                 .Include(c => c.ComponentType)
                 .Select(c => new ComponentViewModel
                 {
@@ -40,16 +42,56 @@ namespace CyberCareServices.Controllers
                     WarrantyPeriod = c.WarrantyPeriod,
                     Description = c.Description,
                     Price = c.Price
-                })
+                });
+
+            // Сортировка по выбранному полю и направлению
+            if (sortOrder == "desc")
+            {
+                componentsQuery = sortField switch
+                {
+                    "ComponentId" => componentsQuery.OrderByDescending(c => c.ComponentId),
+                    "ComponentType" => componentsQuery.OrderByDescending(c => c.ComponentType),
+                    "Brand" => componentsQuery.OrderByDescending(c => c.Brand),
+                    "Manufacturer" => componentsQuery.OrderByDescending(c => c.Manufacturer),
+                    "CountryOfOrigin" => componentsQuery.OrderByDescending(c => c.CountryOfOrigin),
+                    "ReleaseDate" => componentsQuery.OrderByDescending(c => c.ReleaseDate),
+                    "WarrantyPeriod" => componentsQuery.OrderByDescending(c => c.WarrantyPeriod),
+                    "Price" => componentsQuery.OrderByDescending(c => c.Price),
+                    _ => componentsQuery.OrderByDescending(c => c.ComponentId),
+                };
+            }
+            else
+            {
+                componentsQuery = sortField switch
+                {
+                    "ComponentId" => componentsQuery.OrderBy(c => c.ComponentId),
+                    "ComponentType" => componentsQuery.OrderBy(c => c.ComponentType),
+                    "Brand" => componentsQuery.OrderBy(c => c.Brand),
+                    "Manufacturer" => componentsQuery.OrderBy(c => c.Manufacturer),
+                    "CountryOfOrigin" => componentsQuery.OrderBy(c => c.CountryOfOrigin),
+                    "ReleaseDate" => componentsQuery.OrderBy(c => c.ReleaseDate),
+                    "WarrantyPeriod" => componentsQuery.OrderBy(c => c.WarrantyPeriod),
+                    "Price" => componentsQuery.OrderBy(c => c.Price),
+                    _ => componentsQuery.OrderBy(c => c.ComponentId),
+                };
+            }
+
+            var components = await componentsQuery
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
                 .ToListAsync();
 
             var componentsvm = new ComponentsViewModel()
             {
                 Components = components,
-                PageViewModel = new PageViewModel(_context.Orders.Count(), page, PageSize)
+                PageViewModel = new PageViewModel(_context.Components.Count(), page, PageSize),
+                SortField = sortField,
+                SortOrder = sortOrder
             };
+
             return View(componentsvm);
         }
+
 
         // GET: Components/Details/5
         public async Task<IActionResult> Details(int id)

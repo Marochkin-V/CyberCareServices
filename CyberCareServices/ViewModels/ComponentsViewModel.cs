@@ -1,13 +1,9 @@
-﻿using Azure;
-using CyberCareServices.Model;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CyberCareServices.ViewModels;
 
-namespace CyberCareServices.ViewModels
+public class ComponentsViewModel
 {
-    public class ComponentsViewModel
-    {
-        public IEnumerable<ComponentViewModel> Components { get; set; }
-
-        public PageViewModel PageViewModel { get; set; }
-    }
+    public List<ComponentViewModel> Components { get; set; }
+    public PageViewModel PageViewModel { get; set; }
+    public string SortField { get; set; }
+    public string SortOrder { get; set; }
 }

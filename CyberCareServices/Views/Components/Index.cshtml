@@ -15,16 +15,16 @@
 <table class="components-table">
     <thead>
         <tr>
-            <th>#</th>
-            <th>Component Type</th>
-            <th width="5%">Brand</th>
-            <th>Specifications</th>
-            <th>Manufacturer</th>
-            <th>Country</th>
-            <th width="5%">Release Date</th>
-            <th width="5%">Warranty (months)</th>
-            <th>Price</th>
-            <th >Actions</th>
+            <th>@Html.ActionLink("#", "Index", new { sortField = "ComponentId", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th>@Html.ActionLink("Component Type", "Index", new { sortField = "ComponentType", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th width="5%">@Html.ActionLink("Brand", "Index", new { sortField = "Brand", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th>@Html.ActionLink("Specifications", "Index", new { sortField = "Specifications", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th>@Html.ActionLink("Manufacturer", "Index", new { sortField = "Manufacturer", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th>@Html.ActionLink("Country", "Index", new { sortField = "CountryOfOrigin", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th width="5%">@Html.ActionLink("Release Date", "Index", new { sortField = "ReleaseDate", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th width="5%">@Html.ActionLink("Warranty (months)", "Index", new { sortField = "WarrantyPeriod", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th>@Html.ActionLink("Price", "Index", new { sortField = "Price", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc" })</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -52,6 +52,8 @@
         }
     </tbody>
 </table>
+
+
 <div class="pagination-container">
     @if (Model.PageViewModel.HasPreviousPage)
     {
