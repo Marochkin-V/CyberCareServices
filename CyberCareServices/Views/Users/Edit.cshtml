@@ -1,0 +1,34 @@
+﻿@model CyberCareServices.ViewModels.UserEditViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<h1>Edit User</h1>
+<hr />
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="Roles" />
+
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control textarea-custom" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control textarea-custom" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group btn-center">
+        <input type="submit" value="Save" class="page page-primary save-btn" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" class="page page-primary backtolist-btn">
+        <i class="bi bi-arrow-left"></i> Back to List <i class="bi bi-arrow-left"></i>
+    </a>
+</div>

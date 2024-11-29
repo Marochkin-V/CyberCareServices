@@ -23,6 +23,9 @@ td, th {
 tr:nth-child(2n) {
     background: #912E36;
 }
+.role-table td:nth-child(3){
+    text-align: center;
+}
 
 table tr td:first-child {
     text-align: center;

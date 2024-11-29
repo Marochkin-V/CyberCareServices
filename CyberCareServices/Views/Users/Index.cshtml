@@ -6,23 +6,25 @@
 
 <h1>Role Management</h1>
 
-<table class="roles-table">
+<table class="role-table">
     <thead>
         <tr>
-            <th width="30%">User</th>
-            <th width="30%">Roles</th>
-            <th width="40%">Actions</th>
+            <th width="20%">User</th>
+            <th>Roles</th>
+            <th>Role Management</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var userRole in Model.UserRoles)
         {
-            <tr>
+            <tr onclick="window.location.href='@Url.Action("Details", "Users", new { userId = userRole.UserId })'">
                 <td>@userRole.UserName</td>
                 <td>
                     @foreach (var role in userRole.Roles)
                     {
                         <span>@role</span>
+
                         <br />
                     }
                 </td>
@@ -40,7 +42,6 @@
                                         Take over "@role.Name"
                                     </button>
                                 </form>
-
                             }
                             else
                             {
@@ -52,10 +53,17 @@
                                         Make "@role.Name"
                                     </button>
                                 </form>
-
                             }
                         </div>
                     }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-userId="@userRole.UserId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-userId="@userRole.UserId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
                 </td>
             </tr>
         }
