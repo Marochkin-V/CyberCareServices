@@ -20,19 +20,33 @@ namespace CyberCareServices.Controllers
 
         // GET: Customer
         [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string searchQuery, int page = 1)
         {
-            var customers = await _context.Customers
+            // Базовый запрос для выборки клиентов
+            var customersQuery = _context.Customers.AsQueryable();
+
+            // Фильтрация по имени, если задан поисковый запрос
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                customersQuery = customersQuery.Where(c => c.FullName.Contains(searchQuery));
+            }
+
+            // Пагинация
+            var customers = await customersQuery
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
                 .ToListAsync();
+
             var viewModel = new CustomersViewModel
             {
                 Customers = customers,
-                PageViewModel = new PageViewModel(_context.Customers.Count(), page, PageSize)
+                PageViewModel = new PageViewModel(customersQuery.Count(), page, PageSize),
+                SearchQuery = searchQuery // Добавляем поисковый запрос в модель
             };
+
             return View(viewModel);
         }
+
 
         // GET: Customer/Details/5
         public async Task<IActionResult> Details(int? id)

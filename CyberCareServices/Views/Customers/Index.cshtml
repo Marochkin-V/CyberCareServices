@@ -12,6 +12,23 @@
     </div>
 </div>
 
+<div class="search-container">
+    <div class="search-form-custom">
+        <form method="get">
+            <div class="input-wrapper">
+                <input class="form-control textarea-custom"
+                       type="text"
+                       name="searchQuery"
+                       placeholder="Search by name"
+                       value="@Model.SearchQuery" />
+                <div class="search-icon">
+                    <i class="bi bi-search"></i>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table>
     <thead>
         <tr>
@@ -24,25 +41,35 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var customer in Model.Customers)
+        @if (Model.Customers.Any())
         {
-            <tr onclick="location.href='@Url.Action("Details", "Customers", new { id = customer.CustomerId })';">
-                <td>@customer.CustomerId</td>
-                <td>@customer.FullName</td>
-                <td>@customer.Address</td>
-                <td>@customer.Phone</td>
-                <td>@(customer.DiscountAvailable ? $"{customer.DiscountAmount}%" : "No Discount")</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@customer.CustomerId" class="btn btn-link cruid-icon">
-                        <i class="bi bi-pencil-square edit-i"></i>
-                    </a>
-                    <a asp-action="Delete" asp-route-id="@customer.CustomerId" class="btn btn-link text-danger cruid-icon">
-                        <i class="bi bi-trash delete-i"></i>
-                    </a>
-                </td>
+            @foreach (var customer in Model.Customers)
+            {
+                <tr onclick="location.href='@Url.Action("Details", "Customers", new { id = customer.CustomerId })';">
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FullName</td>
+                    <td>@customer.Address</td>
+                    <td>@customer.Phone</td>
+                    <td>@(customer.DiscountAvailable ? $"{customer.DiscountAmount}%" : "No Discount")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@customer.CustomerId" class="btn btn-link cruid-icon">
+                            <i class="bi bi-pencil-square edit-i"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@customer.CustomerId" class="btn btn-link text-danger cruid-icon">
+                            <i class="bi bi-trash delete-i"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">No customers found</td>
             </tr>
         }
     </tbody>
+
 </table>
 <div class="pagination-container">
     @if (Model.PageViewModel.HasPreviousPage)
