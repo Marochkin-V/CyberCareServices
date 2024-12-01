@@ -281,3 +281,42 @@
         transition: opacity 0.3s ease;
     }
 
+.manage-form {
+    background-color: #fdf0d5;
+    color: #7D060F;
+    font-family: 'Lucida Console';
+    border-color: #7D060F;
+}
+
+/* Общий стиль для ссылок в списке */
+.nav.flex-column .nav-item .account-nav-custom {
+    display: block; /* Делает ссылку блочным элементом */
+    padding: 10px 15px; /* Отступы вокруг ссылок */
+    color: #fdf0d5; /* Цвет текста */
+    text-decoration: none; /* Убираем подчеркивание */
+    border-radius: 5px; /* Скругленные углы */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цветов */
+}
+
+    /* Стиль при наведении на ссылку */
+    .nav.flex-column .nav-item .account-nav-custom:hover {
+        background-color: #7D060F; /* Цвет фона при наведении */
+        color: #fdf0d5; /* Цвет текста остается таким же */
+    }
+
+    /* Активная ссылка (страница, на которой находится пользователь) */
+    .nav.flex-column .nav-item .account-nav-custom.active {
+        background-color: #7D060F; /* Цвет фона для активной ссылки */
+        color: #fdf0d5; /* Цвет текста */
+        font-weight: bold; /* Выделение жирным для актива */
+    }
+
+/* Расстояние между элементами списка */
+.nav.flex-column .nav-item {
+    margin-bottom: 10px; /* Отступ между элементами списка */
+}
+
+    /* Убираем отступ для последнего элемента */
+    .nav.flex-column .nav-item:last-child {
+        margin-bottom: 0;
+    }

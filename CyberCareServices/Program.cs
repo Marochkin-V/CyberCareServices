@@ -22,7 +22,7 @@ namespace CyberCareServices
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>() // Добавляем поддержку ролей
+                .AddRoles<IdentityRole>() // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                 .AddEntityFrameworkStores<CyberCareServicesContext>();
             builder.Services.AddControllersWithViews();
 
@@ -30,7 +30,7 @@ namespace CyberCareServices
 
             var app = builder.Build();
 
-            // Добавляем роли и администратора при запуске
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -42,7 +42,7 @@ namespace CyberCareServices
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Ошибка инициализации ролей и администратора: {ex.Message}");
+                    Console.WriteLine($"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {ex.Message}");
                 }
             }
 
@@ -77,7 +77,7 @@ namespace CyberCareServices
 
         private static async Task InitializeRolesAndAdminAsync(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            // Определяем роли
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             var roles = new[] { "Admin", "User" };
             foreach (var role in roles)
             {
@@ -87,7 +87,7 @@ namespace CyberCareServices
                 }
             }
 
-            // Создаём администратора
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             var adminEmail = "admin@admin.com";
             var adminPassword = "Admin123!";
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
@@ -98,11 +98,11 @@ namespace CyberCareServices
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(adminUser, "Admin");
-                    Console.WriteLine("Администратор создан и назначена роль 'Admin'.");
+                    Console.WriteLine("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 'Admin'.");
                 }
                 else
                 {
-                    Console.WriteLine("Ошибка создания администратора:");
+                    Console.WriteLine("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:");
                     foreach (var error in result.Errors)
                     {
                         Console.WriteLine($" - {error.Description}");
@@ -110,7 +110,7 @@ namespace CyberCareServices
                 }
             }
 
-            // Создаём обычного пользователя
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             var userEmail = "user@user.com";
             var userPassword = "User123!";
             var regularUser = await userManager.FindByEmailAsync(userEmail);
@@ -121,11 +121,11 @@ namespace CyberCareServices
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(regularUser, "User");
-                    Console.WriteLine("Обычный пользователь создан и назначена роль 'User'.");
+                    Console.WriteLine("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 'User'.");
                 }
                 else
                 {
-                    Console.WriteLine("Ошибка создания пользователя:");
+                    Console.WriteLine("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:");
                     foreach (var error in result.Errors)
                     {
                         Console.WriteLine($" - {error.Description}");
