@@ -7,6 +7,7 @@ using CyberCareServices.Model;
 using CyberCareServices.ViewModels;
 using CyberCareServices.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.Drawing.Printing;
 
 namespace CyberCareServices.Controllers
 {
@@ -21,13 +22,65 @@ namespace CyberCareServices.Controllers
         }
 
         // GET: Employees
-        [ResponseCache(Duration = 2 * 5 + 240, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortField, string sortOrder, string searchQuery)
         {
-            var employees = await _context.Employees.ToListAsync();
-            var viewModel = new EmployeesViewModel { Employees = employees };
-            return View(viewModel);
+            // Устанавливаем значения по умолчанию для сортировки
+            sortField = string.IsNullOrEmpty(sortField) ? "FullName" : sortField;
+            sortOrder = string.IsNullOrEmpty(sortOrder) ? "asc" : sortOrder;
+
+            // Начальная выборка сотрудников
+            var employeesQuery = _context.Employees
+                .Select(e => new Employee
+                {
+                    EmployeeId = e.EmployeeId,
+                    FullName = e.FullName,
+                    Position = e.Position,
+                    DateOfHire = e.DateOfHire,
+                    DateOfBirth = e.DateOfBirth,
+                    Phone = e.Phone,
+                    Email = e.Email
+                });
+
+            // Фильтрация по поисковому запросу
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                employeesQuery = employeesQuery.Where(e => e.FullName.Contains(searchQuery));
+            }
+
+            // Сортировка по выбранному полю и направлению
+            if (sortOrder == "desc")
+            {
+                employeesQuery = sortField switch
+                {
+                    "FullName" => employeesQuery.OrderByDescending(e => e.FullName),
+                    "Position" => employeesQuery.OrderByDescending(e => e.Position),
+                    _ => employeesQuery.OrderByDescending(e => e.FullName),
+                };
+            }
+            else
+            {
+                employeesQuery = sortField switch
+                {
+                    "FullName" => employeesQuery.OrderBy(e => e.FullName),
+                    "Position" => employeesQuery.OrderBy(e => e.Position),
+                    _ => employeesQuery.OrderBy(e => e.FullName),
+                };
+            }
+
+            var employees = await employeesQuery.ToListAsync();
+
+            var employeevm = new EmployeesViewModel()
+            {
+                Employees = employees,
+                SortField = sortField,
+                SortOrder = sortOrder,
+                SearchQuery = searchQuery
+            };
+
+            return View(employeevm);
         }
+
+
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -4,6 +4,9 @@ namespace CyberCareServices.ViewModels
 {
     public class EmployeesViewModel
     {
-        public IEnumerable<Employee> Employees { get; set; }
+        public List<Employee> Employees { get; set; }
+        public string SearchQuery { get; set; } // Для хранения поискового запроса
+        public string SortField { get; set; }
+        public string SortOrder { get; set; }
     }
 }

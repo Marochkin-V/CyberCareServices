@@ -1,5 +1,5 @@
-﻿@using CyberCareServices.Model
-@model CyberCareServices.ViewModels.EmployeesViewModel
+﻿@using CyberCareServices.ViewModels
+@model EmployeesViewModel
 
 @{
     ViewData["Title"] = "Employees Overview";
@@ -15,45 +15,54 @@
     }
 </div>
 
-<table>
+<div class="search-container">
+    <div class="search-form-custom">
+        <form method="get">
+            <div class="input-wrapper">
+                <input class="form-control textarea-custom" type="text" name="searchQuery" placeholder="Search by name" value="@Model.SearchQuery" />
+                <div class="search-icon">
+                    <i class="bi bi-search"></i>
+                </div>
+            </div>
+            <input type="hidden" name="sortField" value="@Model.SortField" />
+            <input type="hidden" name="sortOrder" value="@Model.SortOrder" />
+        </form>
+    </div>
+</div>
+
+<table class="employees-table">
     <thead>
         <tr>
             <th>#</th>
-            <th>Full Name</th>
-            <th>Position</th>
-            <th width="10%">Phone</th>
-            <th width="22%">Email</th>
-            @if (User.IsInRole("Admin"))
-            {
-                <th>Actions</th>
-            }
+            <th>
+                @Html.ActionLink("Full Name", "Index", new { sortField = "FullName", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc", searchQuery = Model.SearchQuery })
+            </th>
+            <th>
+                @Html.ActionLink("Position", "Index", new { sortField = "Position", sortOrder = Model.SortOrder == "asc" ? "desc" : "asc", searchQuery = Model.SearchQuery })
+            </th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var employee in Model.Employees)
         {
-            <tr onclick="location.href='@Url.Action("Details", "Employees", new { id = employee.EmployeeId })';">
+            <tr>
                 <td>@employee.EmployeeId</td>
                 <td>@employee.FullName</td>
                 <td>@employee.Position</td>
                 <td>@employee.Phone</td>
                 <td>@employee.Email</td>
-                @if (User.IsInRole("Admin"))
-                {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-link cruid-icon">
-                            <i class="bi bi-pencil-square edit-i"></i>
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-link text-danger cruid-icon">
-                            <i class="bi bi-trash delete-i"></i>
-                        </a>
-                    </td>
-                }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@employee.EmployeeId" class="btn btn-link cruid-icon">
+                        <i class="bi bi-pencil-square edit-i"></i>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@employee.EmployeeId" class="btn btn-link text-danger cruid-icon">
+                        <i class="bi bi-trash delete-i"></i>
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
-
-<div class="add-container">
-    <a asp-action="Create" class="page page-primary">Add New Employee <i class="bi bi-plus-square-dotted"></i></a>
-</div>
