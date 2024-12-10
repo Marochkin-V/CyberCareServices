@@ -1,80 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="CyberCareServices.Model.Component">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAkAAAAAAQA4AgAAAAABgAAAAAAAAAAAAAgACAABAAA=</HashCode>
       <FileName>Models\Component.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CyberCareServices.Model.ComponentOrder">
-    <Position X="4" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAA=</HashCode>
-      <FileName>Models\ComponentOrder.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CyberCareServices.Model.ComponentType">
-    <Position X="2.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAoAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\ComponentType.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="CyberCareServices.Model.Customer">
-    <Position X="4" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAJAAAAAAAAAAAAAACBACAAAAIAAAAAA=</HashCode>
       <FileName>Models\Customer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CyberCareServices.Model.Employee">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Position X="9" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEIAAAAACAAAIAgAAAAAAAAAAAQAAAAAAAAIAACAAA=</HashCode>
       <FileName>Models\Employee.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CyberCareServices.Model.Order">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>mAEAAAAAAAAAAIBBAAABGAAACAAAABAAAAAAAEACAAA=</HashCode>
-      <FileName>Models\Order.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CyberCareServices.Model.Service">
-    <Position X="5.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAEAACAAAAAgAAAAAAAAABQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Service.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CyberCareServices.Middleware.DbInitializerMiddleware">
-    <Position X="8" Y="0.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>Middleware\DbInitializerMiddleware.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CyberCareServices.Middleware.DbInitializerExtensions">
-    <Position X="8" Y="2.25" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Middleware\DbInitializerMiddleware.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="CyberCareServices.Data.DbInitializer">
-    <Position X="8" Y="3.5" Width="2.25" />
+    <Position X="11.25" Y="3.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Data\DbInitializer.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CyberCareServices.Data.CyberCareServicesContext">
-    <Position X="11.25" Y="0.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>gAEAAAAAAAAAAIAAgAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Data\CyberCareServicesContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="10" />
